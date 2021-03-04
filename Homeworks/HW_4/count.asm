@@ -14,3 +14,6 @@
          .text
 
          .globl  main
+
+main:
+         
