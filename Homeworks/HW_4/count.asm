@@ -15,5 +15,14 @@
 
          .globl  main
 
+
+
 main:
+         li    $t0, 0 # intialize counted zero occurnce
+         
+
+countOccurrences:
+
+
+end:
          
