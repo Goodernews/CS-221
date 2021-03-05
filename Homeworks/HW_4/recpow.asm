@@ -36,7 +36,7 @@ pow:
          beq   $t0, $a1, end  #If exponent 1, then return
          mul   $a0, $a0, $t1  #
          addi  $a1, -1
-         j     pow   
+         b     pow   
 
 end:
          li $v0, 1 # prep Print
