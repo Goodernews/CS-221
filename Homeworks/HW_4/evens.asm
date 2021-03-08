@@ -13,7 +13,7 @@
 
          .data
 
-         arr:  .word 1, 2, 4, 5, 6, 8, 10
+         arr:  .word 1, 2, 4, 5, 6, 8, 9, 11, 10
          size: .word 0
          .align    2
          .text
@@ -22,19 +22,19 @@
 
 main:
          la    $t0, arr
-         la    $t1, size
+         lw    $t1, size
          li    $t1, 0
+         li    $t4, -1 #holder -1 register
          b     is_even
 
          
 
-is_even: #recursive even or odd, because there is no god
+is_even: #recursive even or odd, because there is no god     
          lw    $t3, ($t0) #grab relevant number
-         not   $t3, $t3 #Bit hacking curtesy of Neils
-         and   $t3, $t3, $t3 #Bit hacking curtesy of Neils
-         #addi  $t3, 1 #if negative 1, then branch end
-         #beqz  $t3, end
-         #addi  $t3, 2 #adds 2 to counteract for the fact that -2 means even
+         beqz  $t3, end
+         andi  $t3 , $t3 , 0x0001 #returns 1 if odd
+         mul   $t3, $t3, $t4 #turns even (0) to 0, and odd (1) to -1
+         addi  $t3, $t3, 1 #adds 1, turns even (0) to 1, and odd (-1) to 0
          add   $t1, $t3, $t1 #adds the last bit from a given int
          la    $t0, 4($t0) # shift four bits
          b     is_even
@@ -42,4 +42,7 @@ is_even: #recursive even or odd, because there is no god
 
 end:
          #sw    size, $t1
+         move  $a0, $t1
+         li    $v0, 1 # prep Print
+         syscall #print
          jr    $ra

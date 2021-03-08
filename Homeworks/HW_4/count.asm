@@ -10,7 +10,7 @@
 
 
          .data
-         
+         str:  .word Nice name nerds
          
 
          .align    2
@@ -21,11 +21,21 @@
 
 
 main:
+         la    $a0, str
+         li    $v0, 5 #Get val
+         syscall
+         move  $a1, $v0 #load char from user
          li    $t0, 0 # intialize counted zero occurnce
+         b     countOccurrences
          
 
 countOccurrences:
+         lw    $t1, ($t0)
+         beqz  $t1, end
+         beq   
 
+
+char_match:
 
 end:
-         
+         jr    $ra

@@ -19,8 +19,17 @@
 main:
          li    $v0, 5 #Get val
          syscall
+         move  $t0, $v0
+         li    #t2, 0 #number bits seen
          
 
 
 bitset:
-         
+         #break condition
+         andi  $t1, $t0, 0x0001
+         add   $t2, $t1
+         sra   $t0, $t0, 4
+end:
+         move  $a0, $t2
+         li    $v0, 1
+         syscall
