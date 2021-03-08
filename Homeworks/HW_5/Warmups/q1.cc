@@ -12,7 +12,7 @@ int main(){
     int max_num;
     int holder;
 
-    cout << "Enter a number: " << endl;
+    cout << "Enter a number: ";
     cin>>max_num;
 
     cout << "\nEnter a number: ";
@@ -22,7 +22,7 @@ int main(){
         max_num = holder;
     }
 
-    cout << "Enter a number: " << endl;
+    cout << "\nEnter a number: ";
     cin >> holder;
     if (holder>max_num)
     {
