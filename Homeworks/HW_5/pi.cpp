@@ -4,7 +4,7 @@
 using namespace std;
 
 
-double gridpi(double npoints){
+constexpr double gridpi(double npoints){
 	if(npoints==1){
 	return 1;
 	/* If it is a one by one return one
@@ -16,17 +16,17 @@ double gridpi(double npoints){
 	/*Assuming that y max is 1 and y=0 npoints,
 	 * thus no need to caluslate the first or last row*/
 	
-	double y; 
+	double y=1; 
 	/*The number used in for loops */
 
 	double jump_dist=1/(npoints-1);
 	/*Used for calculate the number of points in a given row*/
 	
-	double x;
-	/*Used to calulate the intra x-distance*/
+	/*double x;
+	Used to calulate the intra x-distance*/
 
 	for (y=1; y<npoints; y++){
-		x = sqrt(1-pow(y*jump_dist, 2));
+		double x = sqrt(1-pow(y*jump_dist, 2));
 		/* This takes a given y value and gives the x value
 		 * */
 		points+=floor(x/jump_dist)+1;
