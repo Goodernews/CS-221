@@ -6,7 +6,7 @@ Without further adieu, here is a table of the various outputs of the function.
 
 
 |Inputted Gridpoints|Total Points|Points in Circle| Estimate of Pi| Time to calculate| Time with `constexpr`|
-|-------------------|------------|----------------|---------------|------------------|----------------------|
+|------------------:|-----------:|:--------------:|---------------|------------------|----------------------|
 |10                 |100         |74              |2.96           |0.023 ms          |0.029 ms
 |100                |10,000      |7,790           |3.116          |0.035 ms          |0.119 ms
 |1,000              |1,000,000   |784,790         |3.13916        |0.103 ms          |0.106 ms
