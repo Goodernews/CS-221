@@ -1,5 +1,6 @@
 #include <cmath>
 #include <iostream>
+#include <time.h>
 using namespace std;
 
 
@@ -33,7 +34,8 @@ double gridpi(double npoints){
 		 * The floor function is used for rounding error
 		 * The x/jump dist represents the number of gridpoints unrounded
 		 * The +1 is used to account for the zeroth digit.
-		 * This is used instead of ciel for syntactical purposes.*/
+		 * This is used instead of ciel for syntactical purposes.
+		 * Namely, a zeroth case. Ciel(0)=0 while floor(0)+1=1*/
 	}
 	return points;
 
@@ -44,15 +46,33 @@ int main(){
 	int points;
 	cout << "Num points in row: ";
 	cin >> points;
+	/*Self explanatory, gets the dimensions from user*/
+
+	clock_t time_start = clock();
+	/*Starts timing the function*/
 
 	double points_in_circ =  gridpi(points);
+	/*Calls the gridpi function and returns to the var points_in_circ*/
 	
-	double total_points = pow(points, 2);
+	double elapsed_time = clock()-time_start;
+	elapsed_time = elapsed_time/double(CLOCKS_PER_SEC);
+	cout << "Function runtime: " << elapsed_time *1000 << "ms"<< endl;
+	/*Declares a new variable that gets the current time, subtracts it from the
+	 * previous time to calculate time elapsed to a double.*/
 
+
+	double total_points = pow(points, 2);
 	cout << "Total points: " << total_points << endl;
+	/*The decleration is used to give the numerator for the pi approximation*/
+
 	
 	cout << "Points in circle: " << points_in_circ <<endl;
+	/* Outputs the points within the grid and total points for 
+	 * Debugging purposes*/
+
+
 	double aprox_pi = 4*points_in_circ/total_points;
-	cout << "Approximation of Pi: " << aprox_pi;
-	cin >> points;
+	cout << "Approximation of Pi: " << aprox_pi <<endl;
+	/*Because we calculated only one quadrant of the circle, the answer is multiplied by 4
+	 * `points_in_circ`/`total_points` gives the percent of grid */
 }
