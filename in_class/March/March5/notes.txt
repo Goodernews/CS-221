@@ -1,0 +1,4 @@
+You'll never believe it, there is an issue with overflow
+Division by ints gives ints, 
+
+You can use otto (auto?) so you don't have to worry about variable assingments. Laaaaaaaaaaaaaaame

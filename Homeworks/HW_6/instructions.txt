@@ -1,0 +1,34 @@
+HW6: Trees, trees everywhere!
+Goal
+The goal of this exercise is to design and build a simple tree-like data structure that stores keys and values. Unlike a python dictionary, where the main job of the data structure is to access keys efficiently (using a hash table), the main job of this data structure is simply to maintain and traverse a binary search tree. This tree is not a binary search tree and doesn't need to be sorted or balanced. Linear-time searches are fine.
+
+Preliminaries
+Read sections 2.1, 2.2, 3.2, and 3.6 in "A tour of C++", 2nd ed.
+
+Implementation
+You'll be given a declaration file called tree.hh, and will have to write two new files: a definition file called tree.cc, and a test file called test_tree.cc.
+
+tree.hh declares a few types for you, the primary one being Tree, a struct that contains a key and a value. It also delcares the four functions you *must* implement, which represent the public API of your data structure. You should not modify tree.hh! this is the interface you have to work with.
+
+You'll have to write tree.cc yourself from scratch. At the very least, it must implement the four functions declared in the API. You may also implement any helper functions you need in this file.
+
+Finally, you'll have to write test_tree.cc from scratch. This file needs to have a main() function, as well as any tester functions you like. These tester functions will create various test trees by creating Tree structures and filling the members with test data (you can combine Tree variables to create an entire test tree, either by modifying left_/right_ members directly, or by passing completed tree nodes to the create_tree function). Then, test the four public API functions and verify you're getting the output you expected. You may use any testing framework you like, such as Catch2 or plain asserts. Make sure to write thorough tests that cover all legitimate test cases. Also make sure to run your test program under valgrind to ensure no memory bugs.
+
+Submission
+Upload the following files to Moodle (or better yet, paste a link to your github repo):
+
+tree.hh
+tree.cc
+test_tree.cc
+README: explaining your design choices and how to build your program
+Makefile or CMakefile.txt (optional)
+catch2.hpp or any other testing framework files (optional)
+Hints
+Turn all all compiler warnings and treat them as errors: 
+
+g++ -g -Wall -Wextra -pedantic -Werror -std=c++17
+You can read up on the string class here, but really all you need to know for this assignment is that you can append one string to another with the + operator, just like in Python, and that you can iterate a string like any other container with range-based for (as in, for (char c : str) ...)
+assert is your friend. Sprinkle it throughout your code (and testing code) to ensure your program behaves as expected.
+You may find some functions easier to implement recursively.
+You may also find it useful to implement one or more helper functions, especially for path_to. These functions don't have to be declared in tree.hh--you can just implement them in tree.cc since they can remain invisible to the world outside tree.cc.
+Valgrind is great, but because of some weird interaction with the standard C++ library (https://stackoverflow.com/questions/30376601/valgrind-memory-still-reachable-with-trivial-program-using-iostream), don't worry about it if you see a single "leak" of size 72,704 bytes. Any other warning you should worry about.
