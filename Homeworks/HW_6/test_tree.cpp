@@ -17,9 +17,9 @@ int main(){
 	cout << "\nPath to first 5 value: " << path_to(test_tree, 5) << endl;
 	cout << "Path to node with value 2: " << path_to(test_tree, 2) << endl;
 
-	cout << "\nNode at LR: " << node_at(test_tree, "LR") << endl;
-	cout << "Node at RR: " << node_at(test_tree, "RR") << endl;
-	cout << "Node at R: " << node_at(test_tree, "R") << endl;
+	cout << "\nNode at LR: " << node_at(test_tree, "LR").value_ << endl;
+	cout << "Node at RR: " << node_at(test_tree, "RR").value_ << endl;
+	cout << "Node at R: " << node_at(test_tree, "R").value_ << endl;
 
 	cout << "\nDeleting tree" <<endl;
 	destroy_tree(test_tree);

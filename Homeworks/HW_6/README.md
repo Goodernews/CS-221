@@ -20,22 +20,22 @@ In addition `create_tree` has two optional values, `left_` and `right_` which ha
 
 It first creates a node, allocates space in the stack, and returns a pointer to the node.
 
-- [ ] Succesfully compiling
-- [x] Not succesfully compiling
+- [x] No errors compiling
+- [ ] Errors compiling
 
 ## `destroy_tree`
 
 `destroy_tree` takes a pointer to the root of a tree (although it can theoretically take any node) and recursivelly releases the memory, effictevely delting, the tree.
 
-- [ ] Succesfully compiling
-- [x] Not succesfully compiling
+- [x] No errors compiling
+- [ ] Errors compiling
 
 ## `node_at`
 
 `node_at` takes a pointer to a `Tree` root and a capitalized set of chars that leads to a given node, and returns the value of that node. 
 
- - [ ] Succesfully compiling
- - [x] Not succesfully compiling
+- [x] No errors compiling
+- [ ] Errors compiling
 
 ## `path_to`
 
@@ -46,11 +46,14 @@ Edge cases:
  * If the root is the value that is being searched for it returns an empty string `""`.
  * If there is no match the value returned is `"0"`. 
 
- - [ ] Succesfully compiling
- - [x] Not succesfully compiling
+- [x] No errors compiling
+- [ ] Errors compiling
 
 # `test_tree.cpp`
 
-This is the testing file for my project. It tests the various functions through several common cases, and a handful of ege cases.
+This is the testing file for my project. It tests the various functions through several common cases, and a handful of edge cases.
+
+ 1. `Create a root node`
+	 1. Test if possible to make a root node
 
 
