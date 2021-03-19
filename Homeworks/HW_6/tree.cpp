@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+
 using namespace std;
 
 
@@ -30,22 +32,15 @@ int path_to (Tree parent, value_t target){
 	}
 	if (parent.left_!=nullptr){
 		char child_search_left = path_to(parent->left_);
-		if (child_search_left=="0"){
-			goto check_right;
-		}
-		else if(child_search_left==""){
+		if(child_search_left==""){
 			return ("L");
 		}
-		else{
+		else if (child_search!="0"){
 			return ("L" + child_search_left);
 		}
 	}
-check_right:
 	if (parent.right_!=nullptr){
 		char child_search_right = path_to(parent->right_);
-		if (child_search_right=="0"){
-			goto none_found;
-		}
 		else if(child_search_right==""){
 			return ("R");
 		}
@@ -53,6 +48,21 @@ check_right:
 			return ("R" + child_search_right);
 		}
 	}
-none_found:
+	
 	return("0");
+}
+
+value_t node_at(Tree parent, char path){
+	if path==""{
+		return parent.value;
+	}
+	char next_direction = path.front();
+	char remaing_path = path.erase(0,1);
+	else if (next_direction = "L"){
+		return node_at(parent.left_, remaining_path)
+	}
+	else if (next_direction = "R"){
+		return node_at(parent.right_, remaining_path)
+	}
+
 }
