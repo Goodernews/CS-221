@@ -1,10 +1,10 @@
 #include <cmath>
 #include <iostream>
 #include <time.h>
+
 using namespace std;
 
-
-constexpr double gridpi(double npoints){
+double gridpi(double npoints){
 	if(npoints==1){
 	return 1;
 	/* If it is a one by one return one
@@ -16,7 +16,7 @@ constexpr double gridpi(double npoints){
 	/*Assuming that y max is 1 and y=0 npoints,
 	 * thus no need to caluslate the first or last row*/
 	
-	double y=1; 
+	double y, x; 
 	/*The number used in for loops */
 
 	double jump_dist=1/(npoints-1);
@@ -26,7 +26,7 @@ constexpr double gridpi(double npoints){
 	Used to calulate the intra x-distance*/
 
 	for (y=1; y<npoints; y++){
-		double x = sqrt(1-pow(y*jump_dist, 2));
+		x = sqrt(1-pow(y*jump_dist, 2));
 		/* This takes a given y value and gives the x value
 		 * */
 		points+=floor(x/jump_dist)+1;
