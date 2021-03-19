@@ -25,36 +25,39 @@ void destroy_tree(tree_ptr_t parent){
 }
 
 
-std::string path_to (Tree parent, value_t target){
-	if(parent.value_==target){
+std::string path_to(tree_ptr_t tree, key_t key) {
+	if(tree->key_ == key){
 		return ("");
 	}
-	if (parent.left_!=nullptr){
-		std::string child_search_left = path_to(parent.left_, target);
-		if(child_search_left==""){
+	if (tree->left_ != nullptr){
+		std::string child_search_left = path_to(tree->left_, key);
+		if(child_search_left == ""){
 			return ("L");
 		}
-		else if (child_search_left!="0"){
+		else if (child_search_left!="-"){
 			return ("L" + child_search_left);
 		}
 	}
-	if (parent.right_!=nullptr){
-		std::string child_search_right = path_to(parent.right_, target);
-		if (child_search_right==""){
+	if (tree->right_ != nullptr){
+		std::string child_search_right = path_to(tree->right_, key);
+		if (child_search_right == ""){
 			return ("R");
 		}
-		else if (child_search_right!="0") {
+		else if (child_search_right != "-") {
 			return ("R" + child_search_right);
 		}
 	}
 	
-	return("0");
-	/*If no items found in tree the returned value is "0"*/
+	return("-");
+	/*If no items found in tree the returned value is "-"*/
 }
 
 tree_ptr_t node_at(tree_ptr_t tree, std::string path) {
 	if (path==""){
 		return tree;
+	}
+	if (tree==nullptr){
+		return nullptr;
 	}
 	char next_direction = path.front();
 	std::string remaining_path = path.substr(1);
