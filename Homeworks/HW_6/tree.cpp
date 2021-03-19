@@ -1,33 +1,33 @@
 #include <iostream>
 #include <string>
+#include "tree.hh"
 
 using namespace std;
 
 
-using key_t = int;
-using value_t = uint64_t;
-
-struct Tree {
-	key_t key_;
-	value_t value;
-	Tree* left_ = nullptr;
-	Tree* right_ = nullptr;
-};
-
-
-
-void destroy_tree(Tree parent){
-	if (parent.left_!=nullptr){
-		destroy_node_and_children(*parent.left_);
-	}
-	if (parent.right_!=nullptr){
-		destroy_node_and_children(*parent.right_);
-	}
-	delete parent;
+tree_ptr_t create_tree(	const key_t& key,
+			const value_t& value,
+			tree_ptr_t left = nullptr,
+			tree_ptr_t right = nullptr){
+	tree_ptr_t temp = Tree(key_=key, value_=value, left_=left, right_=right);
+	free(temp);
+	return temp;
 }
 
-int path_to (Tree parent, value_t target){
-	if(parent.value==target){
+
+void destroy_tree(tree_ptr_t parent){
+	if (parent.left_!=nullptr){
+		destroy_tree(*parent.left_);
+	}
+	if (parent.right_!=nullptr){
+		destroy_tree(*parent.right_);
+	}
+	delete (parent);
+}
+
+
+const char*  path_to (Tree parent, value_t target){
+	if(parent.value_==target){
 		return ("");
 	}
 	if (parent.left_!=nullptr){
@@ -41,20 +41,21 @@ int path_to (Tree parent, value_t target){
 	}
 	if (parent.right_!=nullptr){
 		char child_search_right = path_to(*parent.right_, target);
-		else if(child_search_right==""){
+		else if (child_search_right==""){
 			return ("R");
 		}
-		else{
+		else {
 			return ("R" + child_search_right);
 		}
 	}
 	
 	return("0");
-}
 
-value_t node_at(Tree parent, char path){
+}       
+
+value_t	node_at(Tree parent, char path){
 	if (path==""){
-		return parent.value;
+		return parent.value_;
 	}
 	char next_direction = path.front();
 	char remaining_path = path.erase(0,1);
