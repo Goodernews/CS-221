@@ -18,12 +18,12 @@ struct Tree {
 
 void destroy_tree(Tree parent){
 	if (parent.left_!=nullptr){
-		destroy_node_and_children(parent->left_);
+		destroy_node_and_children(*parent.left_);
 	}
 	if (parent.right_!=nullptr){
-		destroy_node_and_children(parent->right_);
+		destroy_node_and_children(*parent.right_);
 	}
-	delete *parent;
+	delete parent;
 }
 
 int path_to (Tree parent, value_t target){
@@ -31,16 +31,16 @@ int path_to (Tree parent, value_t target){
 		return ("");
 	}
 	if (parent.left_!=nullptr){
-		char child_search_left = path_to(parent->left_);
+		char child_search_left = path_to(*parent.left_, target);
 		if(child_search_left==""){
 			return ("L");
 		}
-		else if (child_search!="0"){
+		else if (child_search_left!="0"){
 			return ("L" + child_search_left);
 		}
 	}
 	if (parent.right_!=nullptr){
-		char child_search_right = path_to(parent->right_);
+		char child_search_right = path_to(*parent.right_, target);
 		else if(child_search_right==""){
 			return ("R");
 		}
@@ -53,16 +53,16 @@ int path_to (Tree parent, value_t target){
 }
 
 value_t node_at(Tree parent, char path){
-	if path==""{
+	if (path==""){
 		return parent.value;
 	}
 	char next_direction = path.front();
-	char remaing_path = path.erase(0,1);
+	char remaining_path = path.erase(0,1);
 	else if (next_direction = "L"){
-		return node_at(parent.left_, remaining_path)
+		return node_at(*parent.left_, remaining_path);
 	}
 	else if (next_direction = "R"){
-		return node_at(parent.right_, remaining_path)
+		return node_at(*parent.right_, remaining_path);
 	}
 
 }
