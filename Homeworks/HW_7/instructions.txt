@@ -1,0 +1,73 @@
+#####################################
+GOAL
+#####################################
+The goal of this exercise is twofold:
+
+Extend last week's homework to use C++ classes and proper encapsulation.
+Create a new collection of trees (called a forest) using a heap data structure.
+
+####################################
+Partnering
+#####################################
+Starting from this homework assignment, you're allowed and encouraged (but not required) to work with a partner and submit your homework in pairs. Try to pick someone with whom you have good communication, but if it doesn't work out, you can always find a different partner for future assignments.
+
+#####################################
+Preliminaries
+#####################################
+Read sections 2.3, 2.5, 3.2, 4.2, 11.2, and 11.3 in "A Tour of C++", 2nd ed.
+
+
+
+######################################
+Part 1: HTree (40%)
+######################################
+In this part we'll extend the previous homework by rewriting the tree data structure from HW6 as a proper C++ class.
+
+You'll start with the provided htree.hh header file. This file defines all the public interface you *must* implement. But it doesn't include any private data members or methods that you'll need to implement those. So feel free to add code to htree.hh, but do not remove anything. I'm also providing you with stub files for htree.cc and test_htree.cc just to get you started. Obviously, you'll have to add all of the necessary code to them.
+
+The HTree class is very similar to the tree struct you implemented before. There are a few small differences:
+
+   *   All the access functionality is now in methods, not a free-form functions, so you don't have to pass the root of the tree to the functions. They're already associated with a specific object.
+   *   In particular, from outside HTree we're no longer accessing the keys, values, or children of the struct directly. All access must be gated through the appropriate get_ method.
+   *   Instead of representing a path in the tree as a string, we're representing it as a linked list of LEFT and RIGHT enumerations.
+
+After you're done implementing your HTree, you will want to copy & rewrite your testing code from HW6 to use the new class. Run it to ensure you haven't introduced any new bugs.
+
+#####################################
+Part 2: HForest (60%)
+#####################################
+Next, we'll write a new class called HForest. HForest is a collection of independent HTrees: each HTree in the collection is the root of its own tree.
+
+There is no header file provided for it, so you'll have to write both the hforest.hh and hforest.cc file from scratch. You can decide on any interface you like for the class, as long as it supports the following methods, which you have to provide:
+
+    *   `size`: return how many trees are in the forest.
+    *   `add_tree`: Take a pointer to an HTree (of type HTree::tree_ptr_t) and add it to the forest
+    *   `pop_tree`: return a pointer to the HTree with the highest value in the root node, and remove it from the forest.
+
+You can use any internal data structures you like to store the collection, such as an array or an std::vector. Internally, you need to represent your collection as a heap, so that pop_tree can compute the highest-value tree in logarithmic time. You may implement the heap data structure from scratch, but I recommend you rely on C++'s std::make_heap instead. If you do, you'll also have to implement a comparison function to pass as the third parameter to make_heap. This function takes two elements (trees) in a forest (of whatever type you decide to store it in), and returns a bool: true if the first tree has a lower value than the second tree. The value of a tree can simple be the node value at the root of the tree. For example, if you define the following function:
+
+`````````````````````````````````````````````````````````
+bool compare_trees(tree_ptr_t t1, tree_ptr_t t2) {
+
+    return t1->get_value() < t2->get_value();
+
+}
+`````````````````````````````````````````````````````````
+You can pass compare_trees as the third argument to make_heap to prioritize in descending order of values.
+
+
+##############################
+Testing
+##############################
+Once more, you need to write tests to ensure your HForest works properly. You can add your tests to the same main file that tested HTree, but it would be cleaner to have another main file that only tests HForest (so you'll be building & linking two binaries: test_htree and test_hforest; I recommend using a Makefile). I also suggest that you write the test program after your write the hforest.hh header file, but before you write the hforest.cc implementation. This way, your design of the interface will be driven by testing, which often leads to cleaner designs.
+
+Submission
+Upload the following files (if applicable) to Moodle (or better yet, paste a link to your github repo):
+
+   1. `htree.hh` / .cc
+   2. `test_htree.cc`
+   3. `hforest.hh` / .cc
+   4. `test_hforest.cc`
+   5. `README`: explaining your design choices and how to build your program
+   6. `Makefile` or CMakefile.txt (optional)
+   7. `catch2.hpp` or any other testing framework files (optional)
