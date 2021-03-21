@@ -3,13 +3,17 @@ GOAL
 #####################################
 The goal of this exercise is twofold:
 
-Extend last week's homework to use C++ classes and proper encapsulation.
-Create a new collection of trees (called a forest) using a heap data structure.
+   * Extend last week's homework to use C++ classes and proper encapsulation.
+   * Create a new collection of trees (called a forest) using a heap data structure.
+
+
 
 ####################################
 Partnering
 #####################################
 Starting from this homework assignment, you're allowed and encouraged (but not required) to work with a partner and submit your homework in pairs. Try to pick someone with whom you have good communication, but if it doesn't work out, you can always find a different partner for future assignments.
+
+
 
 #####################################
 Preliminaries
@@ -32,6 +36,8 @@ The HTree class is very similar to the tree struct you implemented before. There
    *   Instead of representing a path in the tree as a string, we're representing it as a linked list of LEFT and RIGHT enumerations.
 
 After you're done implementing your HTree, you will want to copy & rewrite your testing code from HW6 to use the new class. Run it to ensure you haven't introduced any new bugs.
+
+
 
 #####################################
 Part 2: HForest (60%)
@@ -61,7 +67,10 @@ Testing
 ##############################
 Once more, you need to write tests to ensure your HForest works properly. You can add your tests to the same main file that tested HTree, but it would be cleaner to have another main file that only tests HForest (so you'll be building & linking two binaries: test_htree and test_hforest; I recommend using a Makefile). I also suggest that you write the test program after your write the hforest.hh header file, but before you write the hforest.cc implementation. This way, your design of the interface will be driven by testing, which often leads to cleaner designs.
 
+
+##############################
 Submission
+##############################
 Upload the following files (if applicable) to Moodle (or better yet, paste a link to your github repo):
 
    1. `htree.hh` / .cc
