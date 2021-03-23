@@ -1,6 +1,6 @@
 # Homework 7
 
-**By**: :sparkles:Taylor :sparkles: Blair:sparkles: & 
+**By**: :sparkles:Taylor :sparkles: Blair:sparkles: & :trollface: Cole :trollface: Nemec :neckbeard:
 
 
 Homework 7 time!
