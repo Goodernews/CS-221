@@ -19,11 +19,11 @@ HTree::path_to(key_t key) const
 key_t HTree::get_key(){
 }
 
-tree_ptr_t HTREE::get_child(){
+tree_ptr_t Htree::get_child(){
 
 }
 
-tree_ptr_t get_child(Direction dir){
+tree_ptr_t Htree::get_child(Direction dir){
 	 
 }
 
