@@ -45,15 +45,15 @@ HTree::tree_ptr_t HTree::get_child(HTree::Direction dir) const {
 HTree::possible_path_t HTree::path_to(key_t key) const
 {
  if (get_key()==key){
-	 return ""; //found value
+	 return { }; //found value
  }
  auto left_path = get_child(HTree::Direction::LEFT)->path_to(key);
  if (left_path!=nullptr){ //Checks left
-	return HTree::Direction::LEFT + left_path; //recursively return_
+	return left_path.push_front(HTree::Direction::LEFT); //recursively return_
  }
  auto right_path = get_child(HTree::Direction::RIGHT)->path_to(key);
  if (right_path!=nullptr){ //Checks right
-	return HTree::Direction::RIGHT + right_path;
+	return right_path.push_front(HTree::Direction::RIGHT);
  }
 
 return nullptr;
