@@ -16,7 +16,10 @@ class HTree {
   using possible_path_t = std::unique_ptr<path_t>;
   using key_t = int;
   using value_t = uint64_t;
-
+  key_t key_;
+  value_t value_;
+  tree_ptr_t left_;
+  tree_ptr_t right_;
 
   // Initialize with a key and a value:
   HTree(key_t key,
@@ -35,4 +38,7 @@ class HTree {
   // Return an optional list of directions from root to a node of a given key.
   // If key not contained in this tree, returns nullptr
   possible_path_t path_to(key_t key) const;
+
+
+  
 };

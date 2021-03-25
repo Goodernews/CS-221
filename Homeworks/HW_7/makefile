@@ -5,6 +5,14 @@ OBJ=$(SRC:.cc=.o)
 
 all:  test_hforest test_htree test_tree decoder
 
+
+htree.o:
+	g++ htree.cc -o htree.o
+
+test_htree.o:
+	g++ test_htree.cc -o test_htree.o
+
+
 test_htree: test_htree.o htree.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
