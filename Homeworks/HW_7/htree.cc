@@ -13,24 +13,24 @@ using namespace std;
 
 
 HTree::key_t HTree::get_key() const {
-	return key_;
+	return key;
 }
 
 HTree::value_t HTree::get_value() const {
-	return value_;
+	return value;
 }
 
 
 HTree::tree_ptr_t HTree::get_child(HTree::Direction dir){
-	if (dir == Direction::LEFT){
-	return left_;
+	if (dir == HTree::Direction::LEFT){
+	return left;
 	}
-       if (dir == Direction::RIGHT){
-	return right_;
+       if (dir == HTree::Direction::RIGHT){
+	return right;
 	}	       
 }
 
-HTree::possible_path HTree::path_to(key_t key) const
+HTree::possible_path_t HTree::path_to(key_t key) const
 {
   return nullptr;
 }

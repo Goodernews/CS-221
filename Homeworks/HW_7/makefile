@@ -1,16 +1,27 @@
-CXX = G++
-CXXFLAGS = "-03 -Wall -Wextra"
-OBJ = htree.o test_htree.o
+CXX=g++-8
+CXXFLAGS=-Wall -Wextra -pedantic -Werror -std=c++17 -O0 -g
+LDFLAGS=$(CXXFLAGS)
+OBJ=$(SRC:.cc=.o)
 
-all: htree
+all:  test_hforest test_htree test_tree decoder
 
+test_htree: test_htree.o htree.o
+	$(CXX) $(LDFLAGS) -o $@ $^
 
-htree: 	$(OBJ)
-	$(CXX) 
+test_tree: test_tree.o tree.o
+	$(CXX) $(LDFLAGS) -o $@ $^
 
+test_hforest: test_hforest.o hforest.o
+	$(CXX) $(LDFLAGS) -o $@ $^
 
-sanity:
-	#Valgrind her
-	
+%.o: %.cc %.hh
+	$(CXX) $(CXXFLAGS) $(OPTFLAGS) -c -o $@ $<
+
+clean:
+	rm -rf *.o test_htree test_tree test_hforest
+
 test: all
-	~ 
+	./test_tree
+	./test_hforest
+	./test_huffman
+	./test_bitio

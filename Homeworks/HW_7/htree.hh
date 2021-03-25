@@ -13,7 +13,7 @@ class HTree {
   using tree_ptr_t = std::shared_ptr<const HTree>;
   enum class Direction { LEFT, RIGHT };
   using path_t = std::list<Direction>;
-  using std::unique_ptr<path_t> = possible_path;
+  using possible_path_t = std::unique_ptr<path_t>;
   using key_t = int;
   using value_t = uint64_t;
 
@@ -34,5 +34,5 @@ class HTree {
 
   // Return an optional list of directions from root to a node of a given key.
   // If key not contained in this tree, returns nullptr
-  possible_path path_to(key_t key) const;
+  possible_path_t path_to(key_t key) const;
 };
