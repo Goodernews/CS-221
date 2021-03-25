@@ -47,24 +47,24 @@ HTree::possible_path_t HTree::path_to(key_t key) const
  if (get_key()==key){
 	 return ""; //found value
  }
- auto left_path = get_child(0).path_to(key)
- if (left_path)!=nullptr{ //Checks left
-	return HTree::Direction(0) + left_path; //recursively return_
+ auto left_path = get_child(HTree::Direction::LEFT)->path_to(key);
+ if (left_path!=nullptr){ //Checks left
+	return HTree::Direction::LEFT + left_path; //recursively return_
  }
- auto right_path = get_shild(1).path_to(key)
- if (right_path)!=nullptr{ //Checks right
-	return HTree::Direction(1) + right_path;
+ auto right_path = get_child(HTree::Direction::RIGHT)->path_to(key);
+ if (right_path!=nullptr){ //Checks right
+	return HTree::Direction::RIGHT + right_path;
  }
 
 return nullptr;
 }
 
 void HTree::~HTree(){
-	if (left_!=nullptr){
-		destroy_tree(left_);
+	if (get_child(HTree::Direction::LEFT)!=nullptr){
+		~get_child(HTree::Direction::LEFT);
 	}
-	if (right_!=nullptr){
-		destroy_tree(right_);
+	if (get_child(HTree::Direction::RIGHT)!=nullptr){
+		~get_child(HTree::Direction::RIGHT);
 	}
 	delete; //delete the current node
 }

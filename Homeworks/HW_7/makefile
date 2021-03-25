@@ -7,29 +7,29 @@ all:  test_hforest test_htree test_tree decoder
 
 
 htree.o:
-	g++ htree.cc -o htree.o
+	g++ htree.cc
 
 test_htree.o:
-	g++ test_htree.cc -o test_htree.o
+	g++ test_htree.cc
 
+hforest.o:
+	g++ hforest.cc
+test_hforest.o:
+	g++ test_hforest.cc
 
-test_htree: test_htree.o htree.o
+test_htree: htree.o test_htree.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
-test_tree: test_tree.o tree.o
-	$(CXX) $(LDFLAGS) -o $@ $^
-
-test_hforest: test_hforest.o hforest.o
+test_hforest: hforest.o test_hforest.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
 %.o: %.cc %.hh
 	$(CXX) $(CXXFLAGS) $(OPTFLAGS) -c -o $@ $<
 
 clean:
-	rm -rf *.o test_htree test_tree test_hforest
+	rm -rf *.o test_htree test_hforest
 
 test: all
-	./test_tree
 	./test_hforest
 	./test_huffman
 	./test_bitio
