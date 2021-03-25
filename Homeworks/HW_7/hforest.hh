@@ -14,11 +14,13 @@ bool compare_trees(HTree::tree_ptr_t t1, HTree::tree_ptr_t t2) {  // Eitan's com
 }
 
 class HForest{
-    int size;
-    list<HTree::tree_ptr_t> entries;
+
 public:
 	using size_t = int;
 	using forest_ptr_t = std::shared_ptr<const HForest>;
+
+    size_t size;
+    list<HTree::tree_ptr_t> entries;
 
 	//Initialization:
 	HForest(HTree firstForestTree): entries{firstForestTree} {};   // Create a new HForest, with firstForestTree as the first entry in it
