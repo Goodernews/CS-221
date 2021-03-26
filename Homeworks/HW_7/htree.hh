@@ -26,7 +26,7 @@ class HTree {
         value_t value,
         tree_ptr_t left = nullptr,
         tree_ptr_t right = nullptr);
-  ~HTree();
+  ~HTree() = default;
 
   key_t get_key() const;  // Return key in current node
   value_t get_value() const;      // Return value in current node

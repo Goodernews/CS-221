@@ -10,8 +10,7 @@ using namespace std;
 // Create an elaborate example test tree:
 HTree::tree_ptr_t create_test_tree()
 {
-  return 
-	  make_shared<HTree>(126, 1);
+  return make_shared<HTree>(126, 1);
 }
 
 void test_htree(const HTree::tree_ptr_t root)
