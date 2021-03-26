@@ -4,10 +4,11 @@
 
 #include "htree.hh"
 #include <cassert>
+#include <iostream>
 
 using namespace std;
 
-// Create an elaborate example test tree:
+
 HTree::tree_ptr_t create_test_tree()
 {
   return make_shared<HTree>(126, 1,
@@ -21,13 +22,16 @@ HTree::tree_ptr_t create_test_tree()
 }
 
 void test_get_child(const HTree::tree_ptr_t root){
-  assert(root->get_child(HTree::Direction::LEFT)==root->left_);
+  assert(root->get_child(HTree::Direction::LEFT)==root->left_); //Test left
+  assert(root->get_child(HTree::Direction::RIGHT)->get_child(HTree::Direction::LEFT)==root->right_->left_); //Test right then left
 }
 
 void test_path_to(const HTree::tree_ptr_t root)
 {
   assert(*(root->path_to(126)) == HTree::path_t({ })); //testing path to root
-  assert(root->path_to(1000)==nullptr); //Testing path to a non existent item
+ // assert(*(root->path_to(1)) == HTree::path_t{HTree::Direction::LEFT} ); //test with singular depth
+  //assert(*(root->path_to(9)) == HTree::path_t{HTree::Direction::LEFT, HTree::Direction::LEFT}); //test where there are duplicates
+  assert(root->path_to(1000) == nullptr); //Testing path to a non existent item
 }
 
 void test_get_key(const HTree::tree_ptr_t root){
@@ -38,8 +42,7 @@ void test_get_key(const HTree::tree_ptr_t root){
 
 void test_get_val(const HTree::tree_ptr_t root){
   assert(root->get_value()==1); //testing get key on root
-  assert(root->get_child(HTree::Direction::RIGHT)->get_value()==40); // testing get key on a left child 
-  
+  assert(root->get_child(HTree::Direction::RIGHT)->get_value()==40); // testing get key on a right child 
 }
 
 int main()

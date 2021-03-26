@@ -8,10 +8,7 @@ using namespace std;
 
 
 
-// Return an optional list of directions from root to a node of a given key.
-// If key not contained in this tree, returns nullptr
-
-
+//Constructor
 HTree::HTree(	HTree::key_t key,
 		HTree::value_t value,
 		HTree::tree_ptr_t left,
@@ -22,47 +19,55 @@ HTree::HTree(	HTree::key_t key,
 	right_ = right;
 }
 
+
+
 HTree::key_t HTree::get_key() const {
+// Method to return key of a node
 	return key_;
 }
 HTree::value_t HTree::get_value() const {
+// Method to return value of a node
 	return value_;
 }
 
 
 HTree::tree_ptr_t HTree::get_child(HTree::Direction dir) const {
-	if (dir == HTree::Direction::LEFT){
+// Returns the child of a given node
+ 
+	if (dir == HTree::Direction::LEFT){ //checks input
 		return left_;
 	}
         if (dir == HTree::Direction::RIGHT){
 		return right_;
 
 	}
-    return nullptr;	
+    return nullptr; //if bad input, returns nullptr
 }
 
 
 
 HTree::possible_path_t HTree::path_to(key_t key) const 
+// Returns the path to a node with a given key.
+
 {
- if (get_key()==key){
-	 return possible_path_t(new path_t());
+ if (get_key()==key){ //base case, found key
+	 return possible_path_t(new path_t()); //creates a pointer to a new list
  }
- if (!get_child(Direction::LEFT)){
- 	auto left_path = get_child(Direction::LEFT)->path_to(key);
- 	if (left_path!=nullptr){ //Checks left
-		left_path->push_front(HTree::Direction::LEFT); //recursively return_
- 		return left_path;
+ if (!get_child(Direction::LEFT)){ //Checks if left exists
+ 	auto left_path = get_child(Direction::LEFT)->path_to(key); //recursive search left child
+ 	if (left_path!=nullptr){ //Checks if there is a path
+		left_path->push_front(HTree::Direction::LEFT); //prepends to the list
+ 		return left_path; 
  	}
  }
- if (!get_child(Direction::RIGHT)){
+ if (!get_child(Direction::RIGHT)){ //checks if right child exists
 	auto right_path = get_child(HTree::Direction::RIGHT)->path_to(key);
- 	if (right_path!=nullptr){ //Checks right
+ 	if (right_path!=nullptr){ 
 		right_path->push_front(HTree::Direction::RIGHT);
 	 	return right_path;
  	}
  }
 
-return nullptr;
+return nullptr; // if nothing found, returns nullptr
 }
 
