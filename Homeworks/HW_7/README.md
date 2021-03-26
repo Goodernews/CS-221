@@ -7,18 +7,21 @@ Homework 7 time!
 
 # Part One
 
-This section involves rewritting
+This section involves rewritting code from the previous assignment into a class with several methods. 
+
+To compile, use the make file command `make test_htree`. The g++ version has not been defined, this is due to an inconsistency in g++ versions among collaborators. This version compiled with
 
 ## `htree.hh`
 
+This file was intially made by Eitan Frachtenburg. Minor edits were made to add on 
 
 ## `htree.cc`
 
 The methods that are used to compose the `HTree` class. It should be assumed that the defintions below are preceded by the `HTree::` [WRITE MORE HERE TAY TAY] 
 
-[x] Structure Outlined
-[x] Errors
-[ ] Compiling succesfully
+ [x] Structure Outlined
+ [x] Errors
+ [ ] Compiling succesfully
 
 ### `Constructor`
 
@@ -39,7 +42,7 @@ Recursively searches for a given key value from a root node.
 **Edge Cases**
 
  + If there is more than one matching value this returns the leftmost key. 
- + If the key is at the root returns `""`.
+ + If the key is at the root returns an empty list `{ }`.
  + If there is no value found, returns `nullptr`.
 
 ### `get_child`
@@ -52,9 +55,9 @@ Takes a node and a direction (from the `Direction` enum defined in `htree.hh`) a
  
 
 
-### `~HTree` (Deconstructor)
+### `~HTree` (Decstructor)
 
-Recursively deconstructs a tree. 
+This is set to the default destructor. 
 
 
 ## `test_tree.cc`

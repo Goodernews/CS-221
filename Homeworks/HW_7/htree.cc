@@ -36,6 +36,7 @@ HTree::tree_ptr_t HTree::get_child(HTree::Direction dir) const {
 	}
         if (dir == HTree::Direction::RIGHT){
 		return right_;
+
 	}
     return nullptr;	
 }
@@ -47,16 +48,19 @@ HTree::possible_path_t HTree::path_to(key_t key) const
  if (get_key()==key){
 	 return possible_path_t(new path_t());
  }
-
- auto left_path = get_child(HTree::Direction::LEFT)->path_to(key);
- if (left_path!=nullptr){ //Checks left
-	left_path->push_front(HTree::Direction::LEFT); //recursively return_
- 	return left_path;
+ if (!get_child(Direction::LEFT)){
+ 	auto left_path = get_child(Direction::LEFT)->path_to(key);
+ 	if (left_path!=nullptr){ //Checks left
+		left_path->push_front(HTree::Direction::LEFT); //recursively return_
+ 		return left_path;
+ 	}
  }
- auto right_path = get_child(HTree::Direction::RIGHT)->path_to(key);
- if (right_path!=nullptr){ //Checks right
-	 right_path->push_front(HTree::Direction::RIGHT);
-	 return right_path;
+ if (!get_child(Direction::RIGHT)){
+	auto right_path = get_child(HTree::Direction::RIGHT)->path_to(key);
+ 	if (right_path!=nullptr){ //Checks right
+		right_path->push_front(HTree::Direction::RIGHT);
+	 	return right_path;
+ 	}
  }
 
 return nullptr;
