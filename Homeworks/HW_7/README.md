@@ -1,6 +1,6 @@
 # Homework 7
 
-**By**: :sparkles:Taylor :sparkles: Blair:sparkles: & :trollface: Cole :trollface: Nemec :neckbeard:
+**By:** :sparkles:Taylor :sparkles: Blair:sparkles: & :trollface: Cole :trollface: Nemec :neckbeard:
 
 
 Homework 7 time!
@@ -14,6 +14,12 @@ To compile, use the make file command `make test_htree`. The g++ version has not
 ## `htree.hh`
 
 This file was intially made by Eitan Frachtenburg. Minor edits were made to add on to change the destructor to the default.  
+
+There are 4 variables that have been added to the class, all of which are public:
+ 1. `key_` 
+ 2. `value_`
+ 3. `left_` 
+ 4. `right_`
 
 ## `htree.cc`
 
@@ -30,11 +36,11 @@ Takes the definition from `htree.hh`.
 
 There are two required arguments:
  1. `key_` which takes an integer
- 2. `value` which takes a 64 bit u integer
+ 2. `value_` which takes a 64 bit u integer
 
 There are two optional values:
- 1. `left` 
- 2. `right`
+ 1. `left_` 
+ 2. `right_`
 
 Which both take a pointer to a new node and have a default value of `nullptr`
 
@@ -118,6 +124,15 @@ Created from scratch....
 
 ### Constuctor
 
+A method that __________ [ADD INSTRUCTIONS HERE]
+
+There are no required arguments... (IS THERE A OPTIONAL ARGUMENT?)
+
+**Returned type:** `forest_ptr_t`
+
+### `add_tree`
+
+A method that adds a tree to a forest. Takes a pointer to a forest.
 
 ### `size`
 
@@ -155,6 +170,27 @@ Set to the default class destructor.
 
 # Notes
 
-Taylor created part one
+Work was split fairly. 
 
-Cole created part two
+Cole worked on:
+ + `hforest.cc`
+ + `hforest.hh`
+ + `test_hforest.cc`
+ + `makefile`
+
+Taylor worked on:
+ + `README.md`
+ + `makefile`
+ + `htree.hh`
+ + `htree.cc`
+ + `test_htree.cc`
+ + `test_hforest.cc`
+
+In addition, we would like to give a special thank you to the following individuals for coding and debugging assistance:
+ + [Eitan Frachtenberg](https://github.com/eitanf)
+	+ All files named
+ + [David Ramirez](https://www.reed.edu/faculty-profiles/profiles/ramirez-david.html) 
+ 	+ `htree.cc`
+ 	+ `makefile`
+ + [Lauren Connors](https://github.com/laurayco)
+ 	+ `hforest.cc`
