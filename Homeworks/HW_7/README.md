@@ -95,7 +95,7 @@ This is set to the default destructor.
 5. `test_get_val()`
 	1. Tests getting root value
 	2. Tests getting value of right child
-6. :notes: :musical_notes: Happy little dance :notes: :musical_notes: 
+6. :musical_note: :notes: Happy little dance :notes: :musical_note:  
 
 # Part Two
 
