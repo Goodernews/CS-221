@@ -73,7 +73,7 @@ Takes a node and a direction from the `Direction` enum defined in `htree.hh` and
  + If there is no child or a bad direction has been passed, returns `nullptr`
 
 
-### `~HTree` (Decstructor)
+### `~HTree` (Destructor)
 
 This is set to the default destructor. 
 
@@ -105,6 +105,7 @@ This is set to the default destructor.
 
 ## `hforest.hh`
 
+Created from scratch....
 
 ## `hforest.cc`
 
@@ -112,25 +113,45 @@ This is set to the default destructor.
 
 - [x] Structure Outlined
 - [x] Code written
-- [x] Compiling succesfully
-- [x] Passing all tests
+- [ ] Compiling succesfully
+- [ ] Passing all tests
+
+### Constuctor
 
 
 ### `size`
 
-A method that ______
+A method that gives the number of trees in a given forest. 
 
-**Returned type:**
+**Returned type:** `int`
 
 ### `pop_tree`
 
-A method that _____
+A method that removes the tree with the largest root value and returns a pointer to the tree.
+
+**Returned type:** `tree_ptr_t`
+
+### Destructor
+
+Set to the default class destructor. 
 
 
 ## `test_hforest.cc`
 
-1. Tests vla vla vla
-
+1. `create_test_forest()`
+	1. Creates a forest with a singular tree
+2. `test_size()`
+	1. Tests the size method on an empty tree
+	2. Tests the size method on the tree from the first test
+3. `test_add_tree()`
+	1. creates a small tree
+	2. Adds it to the forst
+	3. Checks size to see if added succesfully
+4. `test_pop()`
+	1. Creates a large tree and stores the pointer
+	2. Adds it to the forest
+	3. Runs `pop_tree` and check that the returned pointer is the same as the pointer that was created. 
+5. ADD A CELEBRATION JOKE HERE COLE
 
 # Notes
 
