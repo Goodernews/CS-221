@@ -53,17 +53,17 @@ HTree::possible_path_t HTree::path_to(key_t key) const
  if (get_key()==key){ //base case, found key
 	 return possible_path_t(new path_t()); //creates a pointer to a new list
  }
- if (!get_child(Direction::LEFT)){ //Checks if left exists
+ if (get_child(Direction::LEFT)){ //Checks if left exists
  	auto left_path = get_child(Direction::LEFT)->path_to(key); //recursive search left child
  	if (left_path!=nullptr){ //Checks if there is a path
-		left_path->push_front(HTree::Direction::LEFT); //prepends to the list
+		left_path->push_front(Direction::LEFT); //prepends to the list
  		return left_path; 
  	}
  }
- if (!get_child(Direction::RIGHT)){ //checks if right child exists
-	auto right_path = get_child(HTree::Direction::RIGHT)->path_to(key);
+ if (get_child(Direction::RIGHT)){ //checks if right child exists
+	auto right_path = get_child(Direction::RIGHT)->path_to(key);
  	if (right_path!=nullptr){ 
-		right_path->push_front(HTree::Direction::RIGHT);
+		right_path->push_front(Direction::RIGHT);
 	 	return right_path;
  	}
  }
