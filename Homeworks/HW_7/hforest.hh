@@ -2,29 +2,25 @@
 
 #pragma once
 
-#include <list>
+#include <vector>
 #include <memory>
-//#include <vector>
 
 #include "htree.hh"
 
-//Can/should I just put this right in the header file??
-bool compare_trees(HTree::tree_ptr_t t1, HTree::tree_ptr_t t2) {  // Eitan's compare_trees() function
-    return t1->get_value() < t2->get_value();
-}
+
 
 class HForest{
     //size_t size;
-    std::list<HTree::tree_ptr_t> entries;
+    std::vector<HTree::tree_ptr_t> entries;
 
  public:
     using size_t = int;
 	using forest_ptr_t = std::shared_ptr<const HForest>;
 
 	//Initialization:
-	HForest(HTree::tree_ptr_t firstForestTree): entries{firstForestTree} {};   // Create a new HForest, with firstForestTree as the first entry in it
+	//HForest(HTree::tree_ptr_t firstForestTree): entries.push_back(firstForestTree);   // Create a new HForest, with firstForestTree as the first entry in it
 	HForest();  // Default forest: no entries
-	~HForest();
+	~HForest() = default;
 
 	size_t size(forest_ptr_t forest);  // Return how many tree_ptr_t are in the forest
     // add_tree() is defined here, inline, since we need to access HForest.entries without passing some sort of reference to HForest when we call the function

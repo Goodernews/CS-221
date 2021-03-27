@@ -1,10 +1,15 @@
 #include "hforest.hh"
 
 
+//Can/should I just put this right in the header file??
+bool compare_trees(HTree::tree_ptr_t t1, HTree::tree_ptr_t t2) {  // Eitan's compare_trees() function
+    return t1->get_value() < t2->get_value();
+}
+
 // Implemented this functionality in the applicable functions (add_tree(), pop_tree()) in hforest.hh
 //void makeHForestHeap(HForest::forest_ptr_t forest){}
 
-size_t HForest::size(HForest::forest_ptr_t forest){  // Return how many trees are in the forest
+HForest::size_t HForest::size(HForest::forest_ptr_t forest){  // Return how many trees are in the forest
 
     if(forest == nullptr){  // If forest is a nullptr, we don't wanna do anything else with this function, so we return 0
         return 0;
@@ -32,12 +37,15 @@ HTree::tree_ptr_t HForest::pop_tree(HForest::forest_ptr_t forest){    //  Return
     //THIS IS WHERE BEHAVIOR MAY BREAK
     // The forest will, presumably, already have its entries in heap order, since add_tree() runs make_heap() after adding a new tree to entries. Thus, the tree with the highest-value root node will be the first entry
         // THE FOLLOWING 2 LINES IN PARTICULAR ARE SUS
-    HTree maxRootNode                   = *(deRefForest.entries.front());   // dereference the desired root node
-    HTree::tree_ptr_t maxRootNodePtr    = &maxRootNode;    //  This makes a new tree_ptr_t to the desired root node
-        //*HOPEFULLY* this won't actually delete the thing we wanna return a reference to...
-    deRefForest.entries.pop_front();    // Remove the desired node from the list
+    //HTree maxRootNode                   = *(deRefForest.entries.front());   // dereference the desired root node
+    HTree::tree_ptr_t maxRootNode       = deRefForest.entries.front();   // dereference the desired root node
+    //HTree::tree_ptr_t maxRootNodePtr    = &maxRootNode;    //  This makes a new tree_ptr_t to the desired root node
 
-    return maxRootNodePtr;
+        //*HOPEFULLY* this won't actually delete the thing we wanna return a reference to...
+    //deRefForest.entries.pop_front();    // Remove the desired node from the list
+    //deRefForest.entries.erase(deRefForest.entries.begin());
+
+    return maxRootNode;
 }
 
 
