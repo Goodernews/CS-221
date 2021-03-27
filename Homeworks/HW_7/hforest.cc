@@ -1,10 +1,7 @@
 #include "hforest.hh"
 
 
-//Can/should I just put this right in the header file??
-bool compare_trees(HTree::tree_ptr_t t1, HTree::tree_ptr_t t2) {  // Eitan's compare_trees() function
-    return t1->get_value() < t2->get_value();
-}
+
 
 // Implemented this functionality in the applicable functions (add_tree(), pop_tree()) in hforest.hh
 //void makeHForestHeap(HForest::forest_ptr_t forest){}
