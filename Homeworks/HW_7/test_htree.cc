@@ -4,7 +4,7 @@
 
 #include "htree.hh"
 #include <cassert>
-#include <iostream>
+
 
 using namespace std;
 
@@ -29,8 +29,8 @@ void test_get_child(const HTree::tree_ptr_t root){
 void test_path_to(const HTree::tree_ptr_t root)
 {
   assert(*(root->path_to(126)) == HTree::path_t({ })); //testing path to root
- // assert(*(root->path_to(1)) == HTree::path_t{HTree::Direction::LEFT} ); //test with singular depth
-  //assert(*(root->path_to(9)) == HTree::path_t{HTree::Direction::LEFT, HTree::Direction::LEFT}); //test where there are duplicates
+  assert(*(root->path_to(1)) == HTree::path_t{HTree::Direction::LEFT} ); //test with singular depth
+  assert(*(root->path_to(9)) == (HTree::path_t{HTree::Direction::LEFT, HTree::Direction::LEFT}) ); //test where there are duplicates
   assert(root->path_to(1000) == nullptr); //Testing path to a non existent item
 }
 

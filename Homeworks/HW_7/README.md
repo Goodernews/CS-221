@@ -9,7 +9,7 @@ Homework 7 time!
 
 This section involves rewritting code from the previous assignment into a class with several methods. 
 
-To compile, use the make file command `make test_htree`. The g++ version has not been defined, this is due to an inconsistency in g++ versions among collaborators. This version compiled with
+To compile, use the make file command `make test_htree`. The g++ version has not been defined, this is due to an inconsistency in g++ versions among collaborators. This version compiled with on Taylors computer was 9.3.0.
 
 ## `htree.hh`
 
@@ -19,11 +19,10 @@ This file was intially made by Eitan Frachtenburg. Minor edits were made to add 
 
 The methods that are used to compose the `HTree` class. It should be assumed that the defintions below are preceded by the `HTree::` 
 
- [x] Structure Outlined
- [x] Code written
- [x] Compiling succesfully
- [x] Passing some tests
- [ ] Passing all tests
+- [x] Structure Outlined
+- [x] Code written
+- [x] Compiling succesfully
+- [x] Passing all tests
 
 ### `Constructor`
 
@@ -96,17 +95,39 @@ This is set to the default destructor.
 5. `test_get_val()`
 	1. Tests getting root value
 	2. Tests getting value of right child
-6. Happy little dance
+6. :musical_note: :notes: Happy little dance :notes: :musical_note:  
 
 # Part Two
+
+[WHAT THIS SECTION IS ABOUT]
+
+[IDIOSYNCRICIES WITH COMPILING]
 
 ## `hforest.hh`
 
 
 ## `hforest.cc`
 
+[NOTES ON SPECIAL HFOREST THINGS, OR ASSUMPTIONS FOR READING THE FOLLOWING]
 
-## `test_h_forest.cc`
+- [x] Structure Outlined
+- [x] Code written
+- [x] Compiling succesfully
+- [x] Passing all tests
+
+
+### `size`
+
+A method that ______
+
+**Returned type:**
+
+### `pop_tree`
+
+A method that _____
+
+
+## `test_hforest.cc`
 
 1. Tests vla vla vla
 
@@ -114,4 +135,5 @@ This is set to the default destructor.
 # Notes
 
 Taylor created part one
+
 Cole created part two
