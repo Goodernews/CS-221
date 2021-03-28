@@ -1,9 +1,13 @@
-#include "hforest.hh"
 
+#include "hforest.hh"
 
 //Can/should I just put this right in the header file??
 bool compare_trees(HTree::tree_ptr_t t1, HTree::tree_ptr_t t2) {  // Eitan's compare_trees() function
     return t1->get_value() < t2->get_value();
+}
+
+HForest::HForest() {
+
 }
 
 
@@ -61,6 +65,7 @@ void HForest::add_tree(HTree::tree_ptr_t tree) {
     std::make_heap(entries.begin(), entries.end(), compare_trees);
     size_ = size_ + 1;
 }
+
 
 
 

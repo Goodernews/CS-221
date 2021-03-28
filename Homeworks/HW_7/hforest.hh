@@ -20,7 +20,7 @@ class HForest{
 
 	//Initialization:
 	HForest(HTree::tree_ptr_t firstForestTree); // Create a new HForest, with firstForestTree as the first entry in it
-	//HForest();  // Default forest: no entries
+	HForest();  // Default forest: no entries
 	~HForest() = default;
 
 	//size_t size(forest_ptr_t forest);  // Return how many tree_ptr_t are in the forest
