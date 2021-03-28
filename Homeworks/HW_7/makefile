@@ -1,5 +1,5 @@
 CXX=g++
-CXXFLAGS=-Wall -Wextra -pedantic -Werror -std=c++17 -O0 -g -fsanitize=address
+CXXFLAGS=-Wall -Wextra -pedantic -Werror -std=c++2a -O0 -g -fsanitize=address
 LDFLAGS=$(CXXFLAGS)
 OBJ=$(SRC:.cc=.o)
 all:  test_hforest test_htree test_tree decoder

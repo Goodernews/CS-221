@@ -3,17 +3,26 @@
 
 
 
+HForest::HForest(HTree::tree_ptr_t firstForestTree) {
+    entries.push_back(firstForestTree);
+}
+
+
 // Implemented this functionality in the applicable functions (add_tree(), pop_tree()) in hforest.hh
 //void makeHForestHeap(HForest::forest_ptr_t forest){}
 
-HForest::size_t HForest::size(HForest::forest_ptr_t forest){  // Return how many trees are in the forest
+//HForest::size_t HForest::size(HForest::forest_ptr_t forest){  // Return how many trees are in the forest
+//
+//    if(forest == nullptr){  // If forest is a nullptr, we don't wanna do anything else with this function, so we return 0
+//        return 0;
+//    }
+//
+//    HForest deRefForest = *forest;  // Dereference forest so that we can access it and its data
+//    return deRefForest.entries.size();  // Return the size() of the "entries" list of the HForest
+//}
 
-    if(forest == nullptr){  // If forest is a nullptr, we don't wanna do anything else with this function, so we return 0
-        return 0;
-    }
-
-    HForest deRefForest = *forest;  // Dereference forest so that we can access it and its data
-    return deRefForest.entries.size();  // Return the size() of the "entries" list of the HForest
+HForest::size_t HForest::size() const{  // Return how many trees are in the forest
+    return size_;
 }
 
 // add_tree() is implemented in hforest.hh
@@ -44,6 +53,13 @@ HTree::tree_ptr_t HForest::pop_tree(HForest::forest_ptr_t forest){    //  Return
 
     return maxRootNode;
 }
+
+void HForest::add_tree(HTree::tree_ptr_t tree) {
+    entries.push_back(tree);
+    std::make_heap(entries.begin(), entries.end(), compare_trees);
+    size_ = size_ + 1;
+}
+
 
 
 
