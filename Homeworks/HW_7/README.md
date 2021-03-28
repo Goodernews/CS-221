@@ -7,13 +7,13 @@ Homework 7 time!
 
 # Part One
 
-This section involves rewritting code from the previous assignment into a class with several methods. 
+This section involves rewriting code from the previous assignment into a class with several methods. 
 
-To compile, use the make file command `make test_htree`. The g++ version has not been defined, this is due to an inconsistency in g++ versions among collaborators. This version compiled with on Taylors computer was 9.3.0.
+To compile, use the make file command `make test_htree`. The g++ version has not been defined, this is due to an inconsistency in g++ versions among collaborators. This version compiled with on Taylor's computer was 9.3.0.
 
 ## `htree.hh`
 
-This file was intially made by Eitan Frachtenburg. Minor edits were made to add on to change the destructor to the default.  
+This file was initially made by Eitan Frachtenburg. Minor edits were made to add on to change the destructor to the default.  
 
 There are 4 variables that have been added to the class, all of which are public:
  1. `key_` 
@@ -23,11 +23,11 @@ There are 4 variables that have been added to the class, all of which are public
 
 ## `htree.cc`
 
-The methods that are used to compose the `HTree` class. It should be assumed that the defintions below are preceded by the `HTree::` 
+The methods that are used to compose the `HTree` class. It should be assumed that the definitions below are preceded by the `HTree::` 
 
 - [x] Structure Outlined
 - [x] Code written
-- [x] Compiling succesfully
+- [x] Compiling successfully
 - [x] Passing all tests
 - [x] No memory leaks
 
@@ -108,6 +108,8 @@ Part two involved making the `HForest` class. The `HForest` class stores multipl
 
 Due to an update to the method `make_heap` the executables are made using a version of c++ greater than or equal to 20. 
 
+To create `HForest` run `make test_HForest`.
+
 ## `hforest.hh`
 
 Created from scratch. 
@@ -118,15 +120,15 @@ Created from scratch
 
 - [x] Structure Outlined
 - [x] Code written
-- [x] Compiling succesfully
+- [x] Compiling successfully
 - [x] Passing all tests
 - [x] No memory leaks
 
-### Constuctor
+### Constructor
 
 There is no required arguments, if nothing is passed through at construction then a forest with size 0 is created.
 
-Optionally, a forest can be intialled with a tree by passing through a pointer to a tree.
+Optionally, a forest can be installed with a tree by passing through a pointer to a tree.
 
 **Returned type:** `forest_ptr_t`
 
@@ -159,21 +161,21 @@ Set to the default class destructor.
 
 ## `test_hforest.cc`
 
-1. `create_test_forest()`
+1. `create_test_forest`
 	1. Creates a forest with a singular tree
-2. `test_size()`
+2. `test_size`
 	1. Tests the size method on an empty tree
 	2. Tests the size method on the tree from the first test
-3. `test_add_tree()`
+3. `test_add_tree`
 	1. creates a small tree
-	2. Adds it to the forst
-	3. Checks size to see if added succesfully
-4. `test_pop()`
+	2. Adds it to the forest
+	3. Checks size to see if added successfully
+4. `test_pop`
 	1. Creates a large tree and adds it to the forest
 	2. Runs `pop_tree` and check that the returned pointer is the same as the pointer that was created and that size is decreased.
 	3. Adds three new trees (two with identical maximum values) to the forest.
 	4. Checks that the most recently added tree with maximum value.
-	5. Takes a nap and dreams of electric sheep. :zap: :sheep: :zap:
+5. Takes a nap and dreams of electric sheep. :zap: :sheep: :zap:
 
 # Notes
 
@@ -184,6 +186,8 @@ Cole worked on:
  + `hforest.hh`
  + `test_hforest.cc`
  + `makefile`
+ + `README.md`
+
 
 Taylor worked on:
  + `README.md`

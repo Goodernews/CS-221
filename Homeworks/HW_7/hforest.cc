@@ -35,7 +35,7 @@ HTree::tree_ptr_t HForest::pop_tree(){    //  Return a pointer to the HTree with
     return maxRootNode;
 }
 
-void HForest::add_tree(HTree::tree_ptr_t tree) {
+void HForest::add_tree(HTree::tree_ptr_t tree) {    //  add_tree: pushes 'tree' onto the back of entries, sorts entries into a heap, increments size
     entries.push_back(tree);
     std::make_heap(entries.begin(), entries.end(), compare_trees);
     size_ = size_ + 1;
