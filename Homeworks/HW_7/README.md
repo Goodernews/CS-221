@@ -29,6 +29,7 @@ The methods that are used to compose the `HTree` class. It should be assumed tha
 - [x] Code written
 - [x] Compiling succesfully
 - [x] Passing all tests
+- [x] No memory leaks
 
 ### `Constructor`
 
@@ -74,10 +75,8 @@ Takes a node and a direction from the `Direction` enum defined in `htree.hh` and
 
 **Returned type**: A pointer to the child node in a given direction.
 
-**Edge Cases**
-
- + If there is no child or a bad direction has been passed, returns `nullptr`
-
+**Edge Case**
+ + If there is no child, returns `nullptr`
 
 ### `~HTree` (Destructor)
 
@@ -103,36 +102,39 @@ This is set to the default destructor.
 	2. Tests getting value of right child
 6. :musical_note: :notes: Happy little dance :notes: :musical_note:  
 
-# Part Two
+# Part Two: `HForest`
 
-[WHAT THIS SECTION IS ABOUT]
+Part two involved making the `HForest` class. The `HForest` class stores multiple `HTrees` in the heap. 
 
-[IDIOSYNCRICIES WITH COMPILING]
+Due to an update to the method `make_heap` the executables are made using a version of c++ greater than or equal to 20. 
 
 ## `hforest.hh`
 
-Created from scratch....
+Created from scratch. 
 
 ## `hforest.cc`
 
-[NOTES ON SPECIAL HFOREST THINGS, OR ASSUMPTIONS FOR READING THE FOLLOWING]
+Created from scratch
 
 - [x] Structure Outlined
 - [x] Code written
-- [ ] Compiling succesfully
-- [ ] Passing all tests
+- [x] Compiling succesfully
+- [x] Passing all tests
+- [x] No memory leaks
 
 ### Constuctor
 
-A method that __________ [ADD INSTRUCTIONS HERE]
+There is no required arguments, if nothing is passed through at construction then a forest with size 0 is created.
 
-There are no required arguments... (IS THERE A OPTIONAL ARGUMENT?)
+Optionally, a forest can be intialled with a tree by passing through a pointer to a tree.
 
 **Returned type:** `forest_ptr_t`
 
 ### `add_tree`
 
 A method that adds a tree to a forest. Takes a pointer to a forest.
+
+This is a void function and thus does not return anything.
 
 ### `size`
 
@@ -145,6 +147,10 @@ A method that gives the number of trees in a given forest.
 A method that removes the tree with the largest root value and returns a pointer to the tree.
 
 **Returned type:** `tree_ptr_t`
+
+**Edge cases**
+ + If there are two trees that both contain the max value, then the one most recently added will be popped from the forest.
+ + If there are no trees in a forest, then size is not decreased, and `nullptr` is returned.
 
 ### Destructor
 
@@ -163,10 +169,11 @@ Set to the default class destructor.
 	2. Adds it to the forst
 	3. Checks size to see if added succesfully
 4. `test_pop()`
-	1. Creates a large tree and stores the pointer
-	2. Adds it to the forest
-	3. Runs `pop_tree` and check that the returned pointer is the same as the pointer that was created. 
-5. ADD A CELEBRATION JOKE HERE COLE
+	1. Creates a large tree and adds it to the forest
+	2. Runs `pop_tree` and check that the returned pointer is the same as the pointer that was created and that size is decreased.
+	3. Adds three new trees (two with identical maximum values) to the forest.
+	4. Checks that the most recently added tree with maximum value.
+	5. Takes a nap and dreams of electric sheep. :zap: :sheep: :zap:
 
 # Notes
 
@@ -194,3 +201,4 @@ In addition, we would like to give a special thank you to the following individu
  	+ `makefile`
  + [Lauren Connors](https://github.com/laurayco)
  	+ `hforest.cc`
+	+ `makefile`

@@ -4,3 +4,4 @@
 test_htree
 test_hforest
 .idea
+*.dSYM
