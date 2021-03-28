@@ -12,7 +12,7 @@ HForest::HForest() {
 
 
 HForest::HForest(HTree::tree_ptr_t firstForestTree) {
-    entries.push_back(firstForestTree);
+    add_tree(firstForestTree);
 }
 
 

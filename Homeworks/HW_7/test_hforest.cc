@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <cassert>
+#include <iostream>
 
 #include "hforest.hh"
 #include "htree.hh"
@@ -38,7 +39,7 @@ HForest::forest_ptr_t create_test_forest(){ //TYPE NEEDS TO BE CHANGED
 
 
 void test_size(HForest::forest_ptr_t forest){
-  assert(HForest(nullptr).size()==0); //test on empty forest
+  assert(HForest().size()==0); //test on empty forest
   assert(forest->size()==1) ;
 }
 
@@ -59,6 +60,7 @@ void test_pop(HForest::forest_ptr_t forest){
 
 int main(){
     auto park = create_test_forest();
+    
 	test_size(park);
 	test_add_tree(park);
 	test_pop(park);
