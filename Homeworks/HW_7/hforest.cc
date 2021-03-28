@@ -34,17 +34,15 @@ HForest::size_t HForest::size() const{  // Return how many trees are in the fore
     // use list methods to remove the entry from entries
     // return the reference we created
 
-HTree::tree_ptr_t HForest::pop_tree(HForest::forest_ptr_t forest){    //  Return a pointer to the HTree with the highest value in the root node, and remove it from the forest.
-    if(forest == nullptr){  // If forest is a nullptr, we won't do anything else with this function, so we immediately return nullptr
-        return nullptr;
-    }
-    HForest deRefForest = *forest;
+HTree::tree_ptr_t HForest::pop_tree(){    //  Return a pointer to the HTree with the highest value in the root node, and remove it from the forest.
+
+
 
     //THIS IS WHERE BEHAVIOR MAY BREAK
     // The forest will, presumably, already have its entries in heap order, since add_tree() runs make_heap() after adding a new tree to entries. Thus, the tree with the highest-value root node will be the first entry
         // THE FOLLOWING 2 LINES IN PARTICULAR ARE SUS
     //HTree maxRootNode                   = *(deRefForest.entries.front());   // dereference the desired root node
-    HTree::tree_ptr_t maxRootNode       = deRefForest.entries.front();   // dereference the desired root node
+    HTree::tree_ptr_t maxRootNode       = entries.front();   // dereference the desired root node
     //HTree::tree_ptr_t maxRootNodePtr    = &maxRootNode;    //  This makes a new tree_ptr_t to the desired root node
 
         //*HOPEFULLY* this won't actually delete the thing we wanna return a reference to...

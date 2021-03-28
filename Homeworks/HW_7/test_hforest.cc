@@ -32,7 +32,7 @@ HTree::tree_ptr_t create_test_tree_large()
 			  std::make_shared<HTree>(13,12)));
 }
 
-auto create_test_forest(){ //TYPE NEEDS TO BE CHANGED
+HForest::forest_ptr_t create_test_forest(){ //TYPE NEEDS TO BE CHANGED
   return std::make_shared<HForest>(create_test_tree_medium()); //not sure of exact syntax
 }
 
@@ -46,20 +46,20 @@ void test_size(HForest::forest_ptr_t forest){
 void test_add_tree( HForest::forest_ptr_t forest){
   auto small_tree = create_test_tree_small(); //creates a tree with only one node
   forest->add_tree(small_tree); //adds tree pointer to the forest
-  assert(forest.size()==2); //check size of changed forest
+  assert(forest->size()==2); //check size of changed forest
 }
 
 
-void test_pop(){
+void test_pop(HForest::forest_ptr_t forest){
  auto large_tree = create_test_tree_large(); //tree with a known large root
- forest.add_tree(large_tree);
- assert(forest.pop_tree()==large_tree);
+ forest->add_tree(large_tree);
+ assert(forest->pop_tree()==large_tree);
 }
 
 
 
 int main(){
-    park = create_test_forest();
+    auto park = create_test_forest();
 	test_size(park);
 	test_add_tree(park);
 	test_pop(park);
