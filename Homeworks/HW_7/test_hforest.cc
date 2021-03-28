@@ -51,16 +51,27 @@ void test_add_tree( HForest::forest_ptr_t forest){
 
 
 void test_pop(HForest::forest_ptr_t forest){
+ assert(HForest().pop_tree()== nullptr); //check that popping empty forest does nothing
  auto large_tree = create_test_tree_large(); //tree with a known large root
  forest->add_tree(large_tree);
- assert(forest->pop_tree()==large_tree);
-}
+ assert(forest->pop_tree()==large_tree); // tests popping on single tree, checks pointer returned corrrect
+ assert(forest->size() == 2); // checks that size has decreased
 
+ auto other_large_tree = create_test_tree_large();
+ auto small_tree = create_test_tree_small();
+ forest->add_tree(large_tree); //re add old tree
+ forest->add_tree(small_tree); //smaller tree sandwhiched in between
+ forest->add_tree(other_large_tree); //another large tree, identical to large_tree
+ //checking if there are two nodes of the same size which it deletes
+ assert(forest->pop_tree()==other_large_tree); //check that it deletes the most recently added tree
+ assert(forest->pop_tree()==large_tree); //check that it deletes the large tree, and not the small tree in between
+
+}
 
 
 int main(){
     auto park = create_test_forest();
-    
+
 	test_size(park);
 	test_add_tree(park);
 	test_pop(park);
