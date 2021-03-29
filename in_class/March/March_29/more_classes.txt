@@ -1,0 +1,10 @@
+Already know:
++ Only dif between a class and struct is that a struct is public and a class is private
++ Possible to make methods
++ const are a promise to do nothing
+  + to the left of {} means no editing variable
+  + to the left of method name returns a variable that will nto be changed
++ Implicit member
+  + `this` analgous to `self` in python
+
+
