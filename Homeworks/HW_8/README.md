@@ -31,6 +31,13 @@ Testing time!
 
 Creating a bitio class that reads and writes bits. 
 
+- [ ] Structure Outlined
+- [ ] Code written
+- [ ] Compiling successfully
+- [ ] Passing all tests
+- [ ] No memory leaks
+
+
 ## `bitio.hh`
 
 Header file
@@ -49,6 +56,13 @@ What are the functions
 
 Lets encode and decode!
 
+- [ ] Structure Outlined
+- [ ] Code written
+- [ ] Compiling successfully
+- [ ] Passing all tests
+- [ ] No memory leaks
+
+
 ## `encoder.cc`
 
 Takes a file, and compresses. Outputs a `.comp` file
@@ -62,7 +76,9 @@ Takes a `.comp` outputs a `.comp.plaintext`
 
 Middle out test
 
-
+| File |  Original File Size | Compressed Size | Same size post decompression? |
+| ---- | ------------------- | --------------- | ----------------------------- |
+| Listrada| all of the bytes | fits in an overhead bin | Ehhhhhhh              |
 
 # Notes
 
