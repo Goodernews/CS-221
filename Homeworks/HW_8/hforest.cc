@@ -28,11 +28,11 @@ HTree::tree_ptr_t HForest::pop_tree(){    //  Return a pointer to the HTree with
     }
 
     // The forest will, presumably, already have its entries in heap order, since add_tree() runs make_heap() after adding a new tree to entries. Thus, the tree with the highest-value root node will be the first entry
-    HTree::tree_ptr_t maxRootNode       = entries.front();   // dereference the desired root node
-    entries.erase(entries.begin());
+    HTree::tree_ptr_t minRootNode = entries.back();   // dereference the desired root node
+    entries.erase(entries.end());
 
     size_ = size_ -1;
-    return maxRootNode;
+    return minRootNode;
 }
 
 void HForest::add_tree(HTree::tree_ptr_t tree) {    //  add_tree: pushes 'tree' onto the back of entries, sorts entries into a heap, increments size
