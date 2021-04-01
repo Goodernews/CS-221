@@ -1,6 +1,6 @@
 # HW 8: Huffman
 
-**By:** Taylor Blair & 
+**By:** Taylor Blair & Alan Jessup
 
 # Part One
 
@@ -29,7 +29,7 @@ Testing time!
 
 # Part Two
 
-Creating a bitio class that reads and writes bits. 
+Creating a bitio class that reads and writes bits.
 
 - [ ] Structure Outlined
 - [ ] Code written
@@ -83,4 +83,3 @@ Middle out test
 # Notes
 
 Special thanks to the following people for debugging assitance:
-
