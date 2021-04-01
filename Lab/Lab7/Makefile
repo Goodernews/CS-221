@@ -1,22 +1,18 @@
-CXX = g++
-CCFLAGS = -g -std=c++14
-
-# this is a "Suffix Rule" - how to create a .o from a .cc file
-.cpp.o:
-	$(CXX) $(CCFLAGS) -c $<
-
-
-
+XX=g++
+CXXFLAGS=-Wall -Wextra -pedantic -Werror -std=c++2a -O0 -g 
+LDFLAGS=$(CXXFLAGS)
+OBJ=$(SRC:.cc=.o)
 
 
 highest: highest.o
-	$(CXX) -o highest highest.o
+	$(CXX) $(LDFLAGS) -o $@ $^
+	
 
-test: test.o
-	g++ highest.cpp test.cpp
+test: test.o 
+	$(CXX) $(LDFLAGS) -o $@ $^
 
 
-all: source-stats.wc highest
+all: source-stats.wc highest 
 
 source-stats.wc: source.txt
 	wc source.txt > source-stats.wc
@@ -24,3 +20,5 @@ source-stats.wc: source.txt
 clean:
 	rm -f *.o
 	rm -f *-stats.wc
+	rm test 
+	rm highest

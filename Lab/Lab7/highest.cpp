@@ -15,16 +15,9 @@ if (start==finish){
 	return nullptr;
 }
 
-int half_elements = static_cast<int>((finish-start)/2); //the pointer in the middle
 
-auto mid_pointer = start;
+const int *mid_pointer = (finish-start)/2+start; //the pointer in the middle
 
-for (int i=0; i<half_elements; i++){
-	mid_pointer++;
-}
-
-std::cout << mid_pointer << std::endl;
-std::cout << typeid(mid_pointer).name() << std::endl;	
 
 
 if (val >*mid_pointer){ //The value is greater that the mid point
