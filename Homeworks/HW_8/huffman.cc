@@ -5,16 +5,16 @@
 #include "htree.hh"
 
 
-constexpr Huffman::Huffman(){ //because this will start out the same every time, it can be made in advance
+Huffman::Huffman(){ //because this will start out the same every time, it can be made in advance
 	HTree::key_t holder_key = -1; //key value for in between nodes, non leaf nodes
 
-	auto forest = std::make_shared<HForest>(); //create forest
-	/*
-	for(i=0; i<ALPHABET_SIZE; i++){
+	auto forest = HForest(); //create forest
+	
+	for(i=0; i=<ALPHABET_SIZE+1; i++){
 	forest->add_tree(std::make_shared<HTree>(i, 1, nullptr, nullptr));
 	}
 
-	*/
+	
 	//add nodes to forest
 	//RECURSIVE STEP
 	//
@@ -29,10 +29,24 @@ constexpr Huffman::Huffman(){ //because this will start out the same every time,
 		forest->add_tree(merged_tree); //adds merged tree back to the forest
 	}
 
-	auto encoder_ = forest->pop_tree();//clear forest add base tree to encoder_
-	~forest; //releases memory
-	// Sets all node values to zero
+	return forest->pop_tree();//clear forest add base tree to encoder_
+	
 }
+
+
+
+HForest::forest_ptr_t break_tree(HTree::tree_ptr_t){
+       	// splits tree into forest
+	
+}
+
+
+HTree::tree_ptr_t build_tree(HForest::forest_ptr_t forest){
+       	//makes forest into huffman tree
+
+}
+
+
 
 
 bits_t Huffman::encode(int symbol){

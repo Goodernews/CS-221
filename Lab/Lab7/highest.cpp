@@ -3,21 +3,26 @@
 
 const int* highest(int val, const int* start, const int* finish){
 
-if (val==*finish){
-	return finish;
-}
 
-if (val<*start || val>*finish){
-	return nullptr;
-}
 
 if (start==finish){
 	return nullptr;
 }
 
+if (val==*(finish-1)){
+	return finish;
+}
+
+if (val==*start){
+	return start;
+}
+
+
+if (val<*start || val>*finish){
+	return nullptr;
+}
 
 const int *mid_pointer = (finish-start)/2+start; //the pointer in the middle
-
 
 
 if (val >*mid_pointer){ //The value is greater that the mid point

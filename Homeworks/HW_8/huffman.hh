@@ -11,11 +11,17 @@
 #include "htree.hh"
 
 class Huffman {
+ private:
+  HTree::tree_ptr_t encoder_; //stores the encoding tree
+  HForest::forest_ptr_t break_tree(); // splits tree into forest
+  HTree::tree_ptr_t build_tree(HForest::forest_ptr_t forest); //makes forest into huffman tree
+
+
  public:
   // Maximum number of symbols we need to encode (a symbol fits in a char) + EOF
   static const int ALPHABET_SIZE = (1 << CHAR_BIT) + 1;  // (2 ** 8) + 1
   static const int HEOF = ALPHABET_SIZE - 1;  // Special symbol to denote end of file
-  HTree encoder_; //stores the encoding tree
+  static const int dummy_key_ = -1; //Used to denote middle nodes
 
   using bits_t = std::vector<bool>;
 
