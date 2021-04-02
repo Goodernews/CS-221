@@ -15,6 +15,7 @@ class Huffman {
   // Maximum number of symbols we need to encode (a symbol fits in a char) + EOF
   static const int ALPHABET_SIZE = (1 << CHAR_BIT) + 1;  // (2 ** 8) + 1
   static const int HEOF = ALPHABET_SIZE - 1;  // Special symbol to denote end of file
+  HTree encoder_; //stores the encoding tree
 
   using bits_t = std::vector<bool>;
 
