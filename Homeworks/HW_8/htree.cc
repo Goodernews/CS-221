@@ -75,12 +75,4 @@ HTree::possible_path_t HTree::path_to(key_t key) const
 return nullptr; // if nothing found, returns nullptr
 }
 
-/*
-void HTree::reset_vals(int val){
 
-}
-
-
-
-tree_ptr_t HTree::node_at()
-*/
