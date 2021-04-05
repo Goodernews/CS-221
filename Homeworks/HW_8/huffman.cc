@@ -10,7 +10,7 @@ Huffman::Huffman(){ //because this will start out the same every time, it can be
 
 	auto forest = HForest(); //create forest
 	
-	for(i=0; i=<ALPHABET_SIZE+1; i++){
+	for(i=0; i<257; i++){
 	forest->add_tree(std::make_shared<HTree>(i, 0, nullptr, nullptr));
 	} //makes a blank huffman forest
 
@@ -20,25 +20,25 @@ Huffman::Huffman(){ //because this will start out the same every time, it can be
 
 
 
-HForest::forest_ptr_t break_tree(HTree::tree_ptr_t){
+HForest Huffman::break_tree(){
        	// splits tree into forest
-	HForest::forest_ptr_t forest = HForest();
-	while(HForest->size()<ALPHABET_SIZE){
-		//find a leaf node
-		//add to forest
-		//remove pointer from parent
+	auto forest = HForest();
+	for(i=0; i<257; i++){ //assumes there is a value for each node
+		auto curr_val = encoder_->search_key(i)->get_value();//find a leaf node val
+		forest->add_tree(i, curr_val, nullptr, nullptr) //add to forest
 	}
+	
 	return forest;
 }
 
 
-HTree::tree_ptr_t build_tree(HForest::forest_ptr_t forest){
+HTree::tree_ptr_t Huffman::build_tree(HForest::forest_ptr_t forest){
        	//makes forest into huffman tree
-	while(forest->size>1){ //Pop two trees
+	while(forest->size()>1){ //Pop two trees
 		auto smallest_tree = forest->pop_tree();
 		auto small_tree = forest->pop_tree(); //gets smallest trees
 		HTree::value_t num_nodes = smallest_tree->get_value() + small_tree->get_value(); //Num children
-		auto merged_tree = make_shared<HTree>(holder_key, //to signify it is not a leaf node
+		auto merged_tree = make_shared<HTree>(Huffman::dummy_key_, //to signify it is not a leaf node
 				num_nodes, //root value temporarily holds number of leaves in tree
 				small_tree, //adds nodes to merging node
 				smallest_tree);
@@ -52,15 +52,11 @@ HTree::tree_ptr_t build_tree(HForest::forest_ptr_t forest){
 
 
 bits_t Huffman::encode(int symbol){
-	auto update_path = encoder_->path_to(symbol); //find pointer to node with a key
-	auto node_pointer = ...; //pointer to value of node
-		
-	//add one to value of target node frequency
+	auto node_pointer = encoder_->search_key(symbol); //find pointer to node with a key
+	node_pointer->add_one_val(); ///add one to value of target node frequency
 
 	auto broken_tree_ = break_tree(forest); //break apart tree into forest
-
-	//add current value to parent nodes
-	//
+	encoder_ = build_tree(broken_tree);
 }
 
 

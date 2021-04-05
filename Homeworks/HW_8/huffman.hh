@@ -9,6 +9,8 @@
 #include <vector>
 
 #include "htree.hh"
+#include "hforest.hh"
+
 
 class Huffman {
  private:
