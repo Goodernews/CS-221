@@ -6,8 +6,6 @@
 #include "htree.hh"
 using namespace std;
 
-
-
 //Constructor
 HTree::HTree(	HTree::key_t key,
 		HTree::value_t value,
@@ -46,6 +44,27 @@ HTree::tree_ptr_t HTree::get_child(HTree::Direction dir) const {
 
 	}
     return nullptr; //if bad input, returns nullptr
+}
+
+
+HTree::tree_ptr_t HTree::search_key(key_t key){
+ if (get_key()==key){ //base case, found key
+	 return make_shared<HTree>(this); //returns pointer to self
+ }
+ if (get_child(Direction::LEFT)){ //Checks if left exists
+ 	auto left_check = get_child(Direction::LEFT)->search_key(key);
+	if (left_check!=nullptr){ //Checks if there is a path
+ 		return left_check; 
+ 	}
+ }
+ if (get_child(Direction::RIGHT)){ //checks if right child exists
+	auto right_check = get_child(Direction::RIGHT)->search_key(key);
+ 	if (right_check!=nullptr){ 
+	 	return right_check;
+ 	}
+ }
+
+return nullptr; // if nothing found, returns nullptr
 }
 
 

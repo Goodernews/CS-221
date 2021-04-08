@@ -34,7 +34,7 @@ HForest Huffman::break_tree(){
 
 HTree::tree_ptr_t Huffman::build_tree(HForest::forest_ptr_t forest){
        	//makes forest into huffman tree
-	while(forest->size()>1){ //Pop two trees
+	for(i=0; i<257; i++){ //Pop two trees
 		auto smallest_tree = forest->pop_tree();
 		auto small_tree = forest->pop_tree(); //gets smallest trees
 		HTree::value_t num_nodes = smallest_tree->get_value() + small_tree->get_value(); //Num children
@@ -54,7 +54,6 @@ HTree::tree_ptr_t Huffman::build_tree(HForest::forest_ptr_t forest){
 bits_t Huffman::encode(int symbol){
 	auto node_pointer = encoder_->search_key(symbol); //find pointer to node with a key
 	node_pointer->add_one_val(); ///add one to value of target node frequency
-
 	auto broken_tree_ = break_tree(forest); //break apart tree into forest
 	encoder_ = build_tree(broken_tree);
 }
@@ -62,11 +61,20 @@ bits_t Huffman::encode(int symbol){
 
 
 int Huffman::decode(bool bits){
-	auto node = encoder_;
-	/*for(i, i<bits_len;i++){
-	// iterate through the boolean
-	  }
-	  */
+	auto node = encoder_; //intial node
+	/*
+	while(bits!=nullptr){
+		auto current_dir = //first bit 
+		if (current_dir==TRUE){
+			auto node = node->get_child(HTree::Direction::LEFT);
+			}
+		else(){
+			auto node = node->get_child(HTree::Direction::RIGHT);
+		}
+		bits = bits++ //next bit
+	}
+	*/  
+	auto node = root_node->path_to(converted_path);
 	return node->get_key();
 
 }

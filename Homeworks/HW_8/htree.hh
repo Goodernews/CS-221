@@ -31,7 +31,7 @@ class HTree {
   key_t get_key() const;  // Return key in current node
   value_t get_value() const;      // Return value in current node
 
-  tree_ptr_t search_key(key_t key);
+
   // Return the child of this node indicated by dir.
   // If the child is nullptr (current node is a leaf), returns nullptr.
   tree_ptr_t get_child(Direction dir) const;
@@ -43,7 +43,8 @@ class HTree {
   // Return an optional list of directions from root to a node of a given key.
   // If key not contained in this tree, returns nullptr
   possible_path_t path_to(key_t key) const;
-
+  
+  tree_ptr_t search_key(key_t key); //returns value of a key
 
   
 };
