@@ -8,11 +8,11 @@ highest: highest.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 	
 
-test: test.o 
+test: test.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
 
-all: source-stats.wc highest 
+all: source-stats.wc test 
 
 source-stats.wc: source.txt
 	wc source.txt > source-stats.wc
