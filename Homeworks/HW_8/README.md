@@ -2,7 +2,7 @@
 
 **By:** Taylor Blair & Alan Jessup
 
-# Part One
+# Part One: `Huffman encoding`
 
 Implementing Huffman encoding.
 
@@ -22,7 +22,7 @@ This is a method that takes a current node and adds one to the current value.
 
 ### `HTree::search_key`
 
-This is a method that takes a key, and returns a pointer to the node containing the given key.
+This is a method that takes a key, and recursivelly searches for a node containg said key. It then returns a pointer to the node containing the given key.
 
 ### `HForest::compare_tree`
 
@@ -67,7 +67,7 @@ Takes a huffman tree, returns a forest of leaves that have no children nodes.
 
 This was already provided by Eitan Frachtenberg. No modifications were made.  
 
-# Part Two
+# Part Two: `bitio`
 
 Creating a bitio class that reads and writes bits.
 
@@ -92,7 +92,7 @@ What are the functions
 1. test patience
 2. Take the elevator out of the bit mine
 
-# Part Three
+# Part Three: Encoding and Decoding
 
 Lets encode and decode!
 
@@ -112,13 +112,15 @@ Takes a file, and compresses. Outputs a `.comp` file
 Takes a `.comp` outputs a `.comp.plaintext`
 
 
-# Part Four
+# Part Four: Testing Compression 
 
 Middle out test
 
 | File |  Original File Size | Compressed Size | Same size post decompression? |
 | ---- | ------------------- | --------------- | ----------------------------- |
-| Listrada| all of the bytes | fits in an overhead bin | Ehhhhhhh              |
+| [`da_ba_dee.txt`](https://www.musixmatch.com/lyrics/PelleK/Blue-Da-Ba-Dee)| 2.0K | fits in an overhead bin | Ehhhhhhh              |
+| [` gospel_flying_spaghetti.txt`](https://archive.org/stream/TheGospelOfTheFlyingSpaghettiMonster/The+Gospel+Of+The+Flying+Spaghetti+Monster_djvu.txt) | 263 K | vacuqam sealed | I'll never tell |
+
 
 # Notes
 
