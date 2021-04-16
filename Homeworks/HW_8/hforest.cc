@@ -1,4 +1,5 @@
 
+#include <algorithm>
 #include "hforest.hh"
 
 //Can/should I just put this right in the header file??
@@ -40,8 +41,3 @@ void HForest::add_tree(HTree::tree_ptr_t tree) {    //  add_tree: pushes 'tree' 
     std::make_heap(entries.begin(), entries.end(), compare_trees);
     size_ = size_ + 1;
 }
-
-
-
-
-
