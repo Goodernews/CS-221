@@ -44,7 +44,8 @@ class HTree {
   // If key not contained in this tree, returns nullptr
   possible_path_t path_to(key_t key) const;
   
-  tree_ptr_t search_key(key_t key); //returns value of a key
+  
+  const HTree * search_key(key_t key); //returns value of a key
 
   
 };
