@@ -47,9 +47,9 @@ HTree::tree_ptr_t HTree::get_child(HTree::Direction dir) const {
 }
 
 
-const HTree* HTree::search_key(key_t key){
+HTree::tree_ptr_t HTree::search_key(key_t key){
  if (get_key()==key){ //base case, found key
-	 return this; //returns pointer to self
+	 return make_shared<HTree>(this); //returns pointer to self
  }
  if (get_child(Direction::LEFT)){ //Checks if left exists
  	auto left_check = get_child(Direction::LEFT)->search_key(key);
