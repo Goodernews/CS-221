@@ -49,7 +49,7 @@ HTree::tree_ptr_t HTree::get_child(HTree::Direction dir) const {
 
 HTree::tree_ptr_t HTree::search_key(key_t key){
  if (get_key()==key){ //base case, found key
-	 return make_shared<HTree>(this); //returns pointer to self
+	 return make_shared<HTree>(get_key(), get_value(), left_, right_); //returns pointer to self
  }
  if (get_child(Direction::LEFT)){ //Checks if left exists
  	auto left_check = get_child(Direction::LEFT)->search_key(key);

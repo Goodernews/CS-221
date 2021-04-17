@@ -23,7 +23,7 @@ Huffman::Huffman(){ //because this will start out the same every time, it can be
 HForest Huffman::break_tree(){
        	// splits tree into forest
 	auto forest = HForest();
-	for(i=0; i<257; i++){ //assumes there is a value for each node
+	for(int i=0; i<257; i++){ //assumes there is a value for each node
 		auto curr_val = encoder_->search_key(i)->get_value();//find a leaf node val
 		forest->add_tree(i, curr_val, nullptr, nullptr) //add to forest
 	}
@@ -34,7 +34,7 @@ HForest Huffman::break_tree(){
 
 HTree::tree_ptr_t Huffman::build_tree(HForest::forest_ptr_t forest){
        	//makes forest into huffman tree
-	for(i=0; i<257; i++){ //Pop two trees
+	for(int i=0; i<257; i++){ //Pop two trees
 		auto smallest_tree = forest->pop_tree();
 		auto small_tree = forest->pop_tree(); //gets smallest trees
 		HTree::value_t num_nodes = smallest_tree->get_value() + small_tree->get_value(); //Num children
@@ -51,11 +51,23 @@ HTree::tree_ptr_t Huffman::build_tree(HForest::forest_ptr_t forest){
 
 
 
-bits_t Huffman::encode(int symbol){
+Huffman::bits_t Huffman::encode(int symbol){
 	auto node_pointer = encoder_->search_key(symbol); //find pointer to node with a key
 	node_pointer->add_one_val(); ///add one to value of target node frequency
 	auto broken_tree_ = break_tree(forest); //break apart tree into forest
 	encoder_ = build_tree(broken_tree);
+
+
+	auto enum_path = encoder_->path_to(symbol); //gets path to in form of enum left and rights
+	Huffman::bits_t encode_path = new(bits_t());
+	for(auto i: enum_path){
+		if (i*==Direction::LEFT){
+			encode_path.push_back(true);
+		}
+		else(){
+			encode_path.push_back(false);
+		}
+	}
 }
 
 
