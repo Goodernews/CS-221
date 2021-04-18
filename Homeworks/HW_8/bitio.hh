@@ -3,9 +3,17 @@
  * Before reading any bits, ensure your input stream still has valid inputs.
  */
 #include <iostream>
+#include <bitset>
 
 class BitIO {
- public:
+private:
+  std::ostream* os_;
+  std::istream* is_;
+  std::bitset<8> buffer_;  // buffer of bits to convert to/from char
+  int pos_;  // track position of current bit in buffer
+  void send_char();
+
+public:
   // Construct with one of either an input stream or output (the other null)
   BitIO(std::ostream* os, std::istream* is);
 
