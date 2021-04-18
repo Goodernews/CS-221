@@ -15,7 +15,7 @@
 class Huffman {
  private:
   HTree::tree_ptr_t encoder_; //stores the encoding tree
-  HForest::forest_ptr_t break_tree(); // splits tree into forest
+  std::shared_ptr<HForest> break_tree(); // splits tree into forest
   HTree::tree_ptr_t build_tree(HForest::forest_ptr_t forest); //makes forest into huffman tree
 
 
