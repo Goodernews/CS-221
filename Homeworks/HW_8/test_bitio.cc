@@ -88,7 +88,7 @@ test_9_bits()
     }
   }
   {
-    BitIO bitio1(nullptr, &bits1);
+    BitIO bitio1(nullptr, &bits1);  // these two tests are failing--why?
     for (int i = 0; i < 9; ++i) {
       assert(bitio1.input_bit());
     }
