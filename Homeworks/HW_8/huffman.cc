@@ -65,8 +65,8 @@ Huffman::bits_t Huffman::encode(int symbol){
 
 	auto enum_path = encoder_->path_to(symbol); //gets path to in form of enum left and rights
 	bits_t encode_path;
-	for(auto i: enum_path){
-		if (*i==HTree::Direction::LEFT){
+	for(auto i: *enum_path){
+		if (i==HTree::Direction::LEFT){
 			encode_path.push_back(true);
 		}
 		else{
