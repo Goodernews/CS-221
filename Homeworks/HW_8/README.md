@@ -7,7 +7,7 @@
 Implementing Huffman encoding.
 
 - [x] Structure Outlined
-- [ ] Code written
+- [x] Code written
 - [ ] Compiling successfully
 - [ ] Passing all tests
 - [ ] No memory leaks
@@ -46,11 +46,13 @@ Makes a blank huffman tree
 
 ### `encode`
 
-Updates tree...
+Finds the target node, adds one to the value, breaks tree, rebuilds tree to account for the potentially updated structure, returns vector of `true`'s and `false`'s to represent a path. 
 
 ### `decode`
 
 Returns key of node...
+
+**NOT IMPLEMENTED**
 
 ### `build_tree`
 
@@ -58,7 +60,7 @@ Takes a forest of nodes that have no children, and builds it into a huffman enco
 
 ### `break_tree`
 
-Takes a huffman tree, returns a forest of leaves that have no children nodes.
+Takes a huffman tree, returns a forest of single node leaves that have no children nodes. Used for copying the alpha and EOF keys.
 
 
 ## `test_huffman.cc`
@@ -71,10 +73,10 @@ This was already provided by Eitan Frachtenberg. No modifications were made.
 
 Creating a bitio class that reads and writes bits.
 
-- [ ] Structure Outlined
-- [ ] Code written
-- [ ] Compiling successfully
-- [ ] Passing all tests
+- [x] Structure Outlined
+- [x] Code written
+- [x] Compiling successfully
+- [x] Passing all tests
 - [ ] No memory leaks
 
 
@@ -118,11 +120,15 @@ Middle out test
 
 | File |  Original File Size | Compressed Size | Same size post decompression? |
 | ---- | ------------------- | --------------- | ----------------------------- |
-| [`da_ba_dee.txt`](https://www.musixmatch.com/lyrics/PelleK/Blue-Da-Ba-Dee)| 2.0K | fits in an overhead bin | Ehhhhhhh              |
-| [` gospel_flying_spaghetti.txt`](https://archive.org/stream/TheGospelOfTheFlyingSpaghettiMonster/The+Gospel+Of+The+Flying+Spaghetti+Monster_djvu.txt) | 263 K | vacuqam sealed | I'll never tell |
+| [`da_ba_dee.txt`](https://www.musixmatch.com/lyrics/PelleK/Blue-Da-Ba-Dee)| 2.0K | Not Tested | N/A              |
+| [` gospel_flying_spaghetti.txt`](https://archive.org/stream/TheGospelOfTheFlyingSpaghettiMonster/The+Gospel+Of+The+Flying+Spaghetti+Monster_djvu.txt) | 263 K | Not Tested | N/A |
 
 
 # Notes
+
+This is not fully completed. Alan made part two, Taylor made part one. 
+
+## Special Thanks
 
 Special thanks to the following people for debugging assitance:
 
@@ -133,6 +139,8 @@ Special thanks to the following people for debugging assitance:
  + [Edward Coleman Nemec](https://github.com/deeptronos)
 	+ Debugging
 	+ Intial huffman structure
+ + Evan Reid Siden
+ 	+ Bitio
  + [Willow Winter](https://github.com/RaineWillow)
 	+ Performance improvments
 	+ Intial huffman structure
