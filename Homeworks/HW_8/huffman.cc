@@ -8,10 +8,10 @@
 Huffman::Huffman(){ //because this will start out the same every time, it can be made in advance
 	
 
-	auto forest = HForest(); //create forest
+	HForest forest; //create forest
 	
 	for(int i=0; i<ALPHABET_SIZE; i++){
-	forest->add_tree(std::make_shared<HTree>(i, 0, nullptr, nullptr));
+	forest.add_tree(std::make_shared<HTree>(i, 0, nullptr, nullptr));
 	} //makes a blank huffman forest
 
 	auto encoder_ = build_tree(forest); //turns forest into an encoding tree
@@ -20,32 +20,32 @@ Huffman::Huffman(){ //because this will start out the same every time, it can be
 
 
 
-HForest::forest_ptr_t  Huffman::break_tree(){
+HForest  Huffman::break_tree(){
        	// splits alphabet trees into forest
-	auto forest = std::make_shared<HForest>();
+	HForest forest;
 	for(int i=0; i<ALPHABET_SIZE; i++){ //assumes there is a value for each node
 		auto curr_val = encoder_->search_key(i)->get_value();//find a leaf node val
-		forest->add_tree(i, curr_val, nullptr, nullptr); //add to forest
+		forest.add_tree(std::make_shared<HTree>(i, curr_val, nullptr, nullptr)); //add to forest
 	}
 	
 	return forest;
 }
 
 
-HTree::tree_ptr_t Huffman::build_tree(HForest::forest_ptr_t forest){
+HTree::tree_ptr_t Huffman::build_tree(HForest forest){
        	//makes forest into huffman tree
 	for(int i=0; i<ALPHABET_SIZE; i++){ //Pop two trees
-		auto smallest_tree = forest->pop_tree();
-		auto small_tree = forest->pop_tree(); //gets smallest trees
+		auto smallest_tree = forest.pop_tree();
+		auto small_tree = forest.pop_tree(); //gets smallest trees
 		HTree::value_t num_nodes = smallest_tree->get_value() + small_tree->get_value(); //Num children
-		auto merged_tree = make_shared<HTree>(Huffman::dummy_key_, //to signify it is not a leaf node
+		auto merged_tree = std::make_shared<HTree>(Huffman::dummy_key_, //to signify it is not a leaf node
 				num_nodes, //root value temporarily holds number of leaves in tree
 				small_tree, //adds nodes to merging node
 				smallest_tree);
-		forest->add_tree(merged_tree); //adds merged tree back to the forest
+		forest.add_tree(merged_tree); //adds merged tree back to the forest
 	}
 
-	return forest->pop_tree();//clear forest add base tree to encoder_
+	return forest.pop_tree();//clear forest add base tree to encoder_
 }
 
 
@@ -59,7 +59,7 @@ Huffman::bits_t Huffman::encode(int symbol){
 
 
 	auto enum_path = encoder_->path_to(symbol); //gets path to in form of enum left and rights
-	Huffman::bits_t encode_path = new(bits_t());
+	bits_t encode_path;
 	for(auto i: enum_path){
 		if (*i==HTree::Direction::LEFT){
 			encode_path.push_back(true);
@@ -74,17 +74,20 @@ Huffman::bits_t Huffman::encode(int symbol){
 
 
 int Huffman::decode(bool bits){
-	HTree::possible_path_t converted_path = new path_t();
+	HTree::possible_path_t converted_path;
 
 	for(auto i: bits){
 		if (*i==true){
-			converted_path.push_back(HTree::Direction::LEFT);
+			converted_path->push_back(HTree::Direction::LEFT);
 		}
 		else{
-			converted_path.push_back(HTree::Direction::RIGHT);
+			converted_path->push_back(HTree::Direction::RIGHT);
 		}
 	}
-	auto node = root_node->path_to(converted_path);
+	auto node = encoder_->path_to(converted_path);
+	if (node==nullptr){
+		return -1;
+	}
 	return node->get_key();
 
 }

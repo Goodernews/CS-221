@@ -1,2 +1,3 @@
 *.smp
 *.o
+*test_bitio
