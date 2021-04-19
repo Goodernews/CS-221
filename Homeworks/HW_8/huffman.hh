@@ -28,6 +28,7 @@ class Huffman {
   using bits_t = std::vector<bool>;
 
   Huffman();
+  Huffman(HForest forest); // if passing a frequency table
   ~Huffman();
   Huffman(const Huffman&) = delete;
   Huffman(Huffman&&) = delete;

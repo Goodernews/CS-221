@@ -18,7 +18,9 @@ Huffman::Huffman(){ //because this will start out the same every time, it can be
 
 }
 
-
+Huffman::Huffman(HForest forest){
+	auto encoder_ = build_tree(forest);
+}
 
 HForest  Huffman::break_tree(){
        	// splits alphabet trees into forest
@@ -34,8 +36,11 @@ HForest  Huffman::break_tree(){
 
 HTree::tree_ptr_t Huffman::build_tree(HForest forest){
        	//makes forest into huffman tree
-	for(int i=0; i<ALPHABET_SIZE; i++){ //Pop two trees
+	while(forest.size()>1){ //Pop two trees
 		auto smallest_tree = forest.pop_tree();
+		if(forest.size()==0){
+			return smallest_tree;
+		}
 		auto small_tree = forest.pop_tree(); //gets smallest trees
 		HTree::value_t num_nodes = smallest_tree->get_value() + small_tree->get_value(); //Num children
 		auto merged_tree = std::make_shared<HTree>(Huffman::dummy_key_, //to signify it is not a leaf node
