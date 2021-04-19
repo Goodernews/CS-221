@@ -38,7 +38,7 @@ class HTree {
 
 
   void add_one_val(); //Adds one on to the current val
-
+  void sub_one_val();
 
   // Return an optional list of directions from root to a node of a given key.
   // If key not contained in this tree, returns nullptr

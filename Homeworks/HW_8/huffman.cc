@@ -79,21 +79,27 @@ Huffman::bits_t Huffman::encode(int symbol){
 
 
 int Huffman::decode(bool bits){
-	HTree::possible_path_t converted_path;
-
+	auto node = encoder_;
+	
 	for(auto i: bits){
+		if(node==nullptr){
+			return -1;
+		}
 		if (*i==true){
-			converted_path->push_back(HTree::Direction::LEFT);
+			node = node->get_child(HTree::Direction::LEFT);
 		}
 		else{
-			converted_path->push_back(HTree::Direction::RIGHT);
+			node = node->get_child(HTree::Direction::RIGHT);
 		}
 	}
-	auto node = encoder_->path_to(converted_path);
+	
 	if (node==nullptr){
-		return -1;
+		return -1; //if error
 	}
-	return node->get_key();
+
+	node->sub_one_val();
+
+	return node->get_key(); //symbol to change
 
 }
 

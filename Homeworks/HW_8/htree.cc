@@ -33,6 +33,12 @@ void HTree::add_one_val(){
 	value_++;
 }
 
+void HTree::sub_one_val(){
+	// Adds one on to the current value
+	value_--;
+}
+
+
 HTree::tree_ptr_t HTree::get_child(HTree::Direction dir) const {
 // Returns the child of a given node
  
