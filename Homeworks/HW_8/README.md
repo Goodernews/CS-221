@@ -46,7 +46,7 @@ Makes a blank huffman tree
 
 ### `encode`
 
-Finds the target node, adds one to the value, breaks tree, rebuilds tree to account for the potentially updated structure, returns vector of `true`'s and `false`'s to represent a path. 
+Finds the target node, adds one to the value, breaks tree, rebuilds tree to account for the potentially updated structure, returns vector of `true`'s and `false`'s to represent a path.
 
 ### `decode`
 
@@ -98,9 +98,9 @@ What are the functions
 
 Lets encode and decode!
 
-- [ ] Structure Outlined
-- [ ] Code written
-- [ ] Compiling successfully
+- [x] Structure Outlined
+- [x] Code written
+- [x] Compiling successfully
 - [ ] Passing all tests
 - [ ] No memory leaks
 
@@ -114,7 +114,7 @@ Takes a file, and compresses. Outputs a `.comp` file
 Takes a `.comp` outputs a `.comp.plaintext`
 
 
-# Part Four: Testing Compression 
+# Part Four: Testing Compression
 
 Middle out test
 
@@ -126,7 +126,7 @@ Middle out test
 
 # Notes
 
-This is not fully completed. Alan made part two, Taylor made part one. 
+This is not fully completed. Taylor made the adaptive Huffman encoding, Alan made BitIO and Encoder/Decoder. 
 
 ## Special Thanks
 
