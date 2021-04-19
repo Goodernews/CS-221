@@ -26,7 +26,7 @@ bool BitIO::input_bit() {
     unsigned int i_byte = static_cast<ulong>(c_byte);  // convert from char to ulong int
     buffer_ = i_byte;  // save bits in buffer
 
-    std::cout << "CHAR RECIEVED: " << buffer_ << " / " << i_byte << std::endl;
+//    std::cout << "CHAR RECIEVED: " << buffer_ << " / " << i_byte << std::endl;
   }
   bool bit = buffer_.test(pos_);
 //  std::cout << "input bit " << pos_ << ": " << bit << std::endl;
@@ -43,7 +43,7 @@ void BitIO::send_char() {  // send buffer to stream, and reset buffer and pos
   unsigned char c_byte = char(i_byte);
   os_ -> put(c_byte);  // send byte to ostream
 
-  std::cout << "CHAR SENT: " << buffer_ << " / " << i_byte << " POS: " << pos_ << std::endl;
+//  std::cout << "CHAR SENT: " << buffer_ << " / " << i_byte << " POS: " << pos_ << std::endl;
 
   pos_ = 0;
   buffer_.reset();
@@ -56,5 +56,4 @@ BitIO::~BitIO() {
     }
     buffer_.reset();
   }
-  std::cout << std::endl;
 }
