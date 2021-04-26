@@ -13,7 +13,7 @@ tsp: cities.o tsp.o
 %.o: %.cc %.hh
 		$(CXX) $(CXXFLAGS) $(OPTFLAGS) -c -o $@ $<
 clean:
-		rm -rf *.o tsp cities
+		rm -rf *.gif *.o tsp cities
 
 test: tsp
 	./tsp five.tsv
