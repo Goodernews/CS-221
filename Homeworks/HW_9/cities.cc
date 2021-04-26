@@ -25,9 +25,9 @@ Cities Cities::reorder(const permutation_t& ordering) const {
   // The distance between any two cities is computed as the Euclidean 
   // distance on a plane between their coordinates.
 
-double euclid_dist(coord_t city_one, coord_t city_two){
-	int x_dist = city_one[0]-city_two[0];
-	int y_dist = city_one[1]-city_two[1];
+double euclid_dist(Cities::coord_t city_one, Cities::coord_t city_two){
+	int x_dist = city_one.first -city_two.first;
+	int y_dist = city_one.second-city_two.second;
 
 	return sqrt(pow(x_dist, 2)+pow(y_dist, 2));
 }
@@ -37,6 +37,7 @@ double Cities::total_path_distance(const permutation_t& ordering) const{
 	for(int i=0; i<size; i++){
 	traveled+=euclid_dist([ordering][i], [ordering][i+1]);
 	}
+	traveled += euclid_dist([ordering][0], [ordering][size-1]) //travel from first to last
 	return traveled;
 }
 
