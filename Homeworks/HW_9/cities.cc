@@ -9,14 +9,26 @@ Cities::Cities(char file_name){
 	std::ifstream coord_file(file_name);
 	while(coord_file >> x >> y){
 		size++;
-		city_coords.push_back(coord_t<x, y>);
+		coords_.push_back(coord_t(x, y));
 	}
 }
 
+
+Cities::Cities(){
+	int size = 0;
+}
+
+
 Cities Cities::reorder(const permutation_t& ordering) const {
 	// I saw faster methods on stackoverflow, I will  stick with what works
-	ordering;
-	return this;
+	Cities reordered;
+	
+	for(int x=0; x<size; x++){
+		reordered.size++;
+		reordered.coords_.push_back(this->coords_[ordering[x]]);
+	}
+
+	return reordered;
 }
 
   // For a given permutation of the cities in this object,
@@ -35,40 +47,10 @@ double euclid_dist(Cities::coord_t city_one, Cities::coord_t city_two){
 double Cities::total_path_distance(const permutation_t& ordering) const{
 	double traveled=0;
 	for(int i=0; i<size; i++){
-	traveled+=euclid_dist([ordering][i], [ordering][i+1]);
+	traveled+=euclid_dist(coords_[ordering[i]], coords_[ordering[i+1]]);
 	}
-	traveled += euclid_dist([ordering][0], [ordering][size-1]) //travel from first to last
+	traveled += euclid_dist(coords_[ordering[0]], coords_[ordering[size-1]]) //travel from first to last
 	return traveled;
 }
 
-int main(int argc, char* argv[]){
-	if (argc!=1){
-		std::cout << "Please pass only one argument" << std::endl;
-		return -1;
-	}
-	Cities route = Cities(&argv[0]);
-	
-
-	permutation_t ordered(route.size); //empty vector of same size as trip 
-
-	std::iota (std::begin(ordered), std::end(ordered), 0); // makes vector (0 to size)
-
-	double best_dist = route.total_path_distance(ordered); // Curent trip
-
-	for(int j=0; j<100; j++){
-	//permute
-		std::random_shuffle(ordered.begin(), ordered.end());
-		if (route.total_path_distance(ordered)<best_dist){
-			best_dist = route.total_path_distance(ordered);
-			route.reorder(ordered);
-			std::cout << "Better distance: " << best_dist << std::endl;
-			std::cout << "Prremutation: " << j << std::endl;
-		}
-	}
-
-	//Write output here
-		
-
-	return 1;
-}
 
