@@ -5,17 +5,16 @@
 
 
 Cities::Cities(char file_name){
-	int size = 0;
-	std::ifstream coord_file(file_name);
+	std::ifstream coord_file(file_name); //reads file
 	while(coord_file >> x >> y){
-		size++;
-		coords_.push_back(coord_t(x, y));
+		size++; //increments size
+		coords_.push_back(coord_t(x, y)); //adds on city coords to the vector
 	}
 }
 
 
-Cities::Cities(){
-	int size = 0;
+Cities::Cities(){ //if passed no arguments, create a default class
+	
 }
 
 

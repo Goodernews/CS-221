@@ -7,6 +7,7 @@
 #include <vector>
 
 
+
 // Representation of an ordering of cities
 class Cities {
 private:
@@ -37,7 +38,10 @@ public:
   // distance on a plane between their coordinates.
   double total_path_distance(const permutation_t& ordering) const;
 
-  std::vector<coord_t> city_coords;
-  int size;
+
+  int size = 0; 
 
 };
+
+//euclid dist between two city coords
+double euclid_dist(Cities::coord_t city_one, Cities::coord_t city_two);
