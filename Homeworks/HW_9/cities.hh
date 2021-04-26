@@ -10,7 +10,7 @@
 // Representation of an ordering of cities
 class Cities {
 private:
-  int size;
+
 
 public:
   // A pair of integral coordinates for each city
@@ -19,6 +19,8 @@ public:
   // An ordering of cities. Each value represents a unique index
   // into the current city ordering in some container.
   using permutation_t = std::vector<unsigned int>;
+  
+  Cities(char file_name);
 
   // Given a permutation, return a new Cities object where the order of the
   // cities reflects the original order of this class after reordering with
@@ -32,4 +34,8 @@ public:
   // The distance between any two cities is computed as the Euclidean 
   // distance on a plane between their coordinates.
   double total_path_distance(const permutation_t& ordering) const;
+
+  std::vector<coord_t> city_coords;
+  int size;
+
 };
