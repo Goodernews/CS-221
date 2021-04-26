@@ -46,9 +46,10 @@ double euclid_dist(Cities::coord_t city_one, Cities::coord_t city_two){
 double Cities::total_path_distance(const permutation_t& ordering) const{
 	double traveled=0;
 	for(int i=0; i<size; i++){
-	traveled+=euclid_dist(coords_[ordering[i]], coords_[ordering[i+1]]);
+	traveled+=euclid_dist(coords_.at(ordering[i]), coords_.at(ordering[i+1]));
 	}
 	traveled += euclid_dist(coords_[ordering[0]], coords_[ordering[size-1]]) //travel from first to last
+
 	return traveled;
 }
 
