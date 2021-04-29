@@ -12,6 +12,7 @@
 
 #include "cities.hh"
 #include <random>
+#include <map>
 
 class Chromosome {
    // Disable public copying of objects for polymorphism:

@@ -6,8 +6,13 @@
 
 #include <iostream>
 #include <vector>
-#include <string>
-
+#include <complex>
+#include <cmath>
+#include <algorithm>
+#include <random>
+#include <utility>
+#include <cassert>
+#include <fstream>
 
 // Representation of an ordering of cities
 class Cities {
@@ -18,12 +23,7 @@ class Cities {
   // An ordering of the cities in cities_t. Each value represents a unique index
   // into the current city ordering.
   using permutation_t = std::vector<unsigned int>;
-
   Cities() = default;
-  Cities(const std::vector<coord_t>& cities) // Construct from explicit cities
-   : cities_(cities)
-  {}
-  Cities(const std::string& filename); // Construct by reading from file
 
   ~Cities() = default;
 
@@ -40,19 +40,44 @@ class Cities {
   // distance on a plane between their coordinates.
   double total_path_distance(const permutation_t& ordering) const;
 
-  // Return number of cities:
-  unsigned size() const { return cities_.size(); }
+  //Returns a new random permutation for ordering of cities.
+  static permutation_t random_permutation(unsigned len);
 
-  friend std::istream& operator>>(std::istream& is, Cities& cities);
-  friend std::ostream& operator<<(std::ostream& os, const Cities& cities);
+  //Accessor method that returns length of cityList
+  unsigned get_length() const{
+    return cityList.size();
+  }
 
+  //////////////////////////////////Operator Overloads//////////////////////////////////
+  friend std::istream& operator>> (std::istream& input, Cities& city) {
+    int x, y;                                                            // declare coordinates
+    while(!input.eof()){                                     
+        input >> x;                                                      // get the x-coordinate                                          
+        input >> y;                                                      // get the y-coordinate
+        auto coords = std::make_pair(x, y);                              // make a std::pair out of extracted numbers
+        city.cityList.push_back(coords);                                 // push back coordinate pair in cityList                             
+    }
+    city.cityList.pop_back();                                            // using eof-based loop results in duplicate of last element; remove last element
+    return input;                                                        // return the input stream
+  }
+
+  friend std::ostream& operator<< (std::ostream& output, Cities& city) {
+    for(auto coords : city.cityList){
+    // store the x-coordinate, followed by a space, and then the y-coordinate into the output stream 
+      output << coords.first << " " << coords.second << std::endl;                                                                                        
+    }
+    return output;
+   }
+
+  // Outputs cityList of a Cities object to the console
+   friend void output_list(Cities& city) {
+        for(auto coords : city.cityList){
+            std::cout << coords.first << ", " << coords.second << std::endl;
+        }
+   }
+
+ 
  private:
-  using cities_t = std::vector<coord_t>;
-  cities_t cities_;
+  std::vector<coord_t> cityList;
+  permutation_t travelOrder;
 };
-
-std::istream& operator>>(std::istream& is, Cities& cities);
-std::ostream& operator<<(std::ostream& os, const Cities& cities);
-
-Cities::permutation_t random_permutation(unsigned len);
-

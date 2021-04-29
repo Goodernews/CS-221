@@ -1,96 +1,51 @@
-/*
- * Implementation for Travelling-Salesperson Cities class and utilities
- */
-
-#include <algorithm>
-#include <fstream>
-#include <numeric>
-#include <random>
-
 #include "cities.hh"
+#include <vector>
+#include <istream>
+#include <ostream>
+#include <cmath>
 
-
-//////////////////////////////////////////////////////////////////////////////
-Cities::Cities(const std::string& filename)
- : cities_()
-{
-  std::ifstream inp(filename);
-  if (inp.is_open()) {
-    inp >> *this;
-  }
+//Calculates distance between two points using sqrt( (x_2 - x_1)^2 + (y_2 - y_1)^2 )
+double distance_between(Cities::coord_t start, Cities::coord_t end){
+    return std::sqrt( std::pow( (end.first - start.first), 2) + std::pow( (end.second - start.second), 2));
 }
 
-//////////////////////////////////////////////////////////////////////////////
-// Given a permutation, return a new Cities object where the order of the
-// cities reflects the original order of this class after reordering with
-// the given ordering. So for example, the ordering { 1, 0 } simply swaps
-// the first two elements (coordinates) in the new Cities object.
-Cities
-Cities::reorder(const permutation_t& ordering) const
-{
-  Cities ret;
-  for (auto i : ordering) {
-    ret.cities_.push_back(cities_[i]);
-  }
-  return ret;
+//Calculates total distance between points in cityList, in order given by ordering 
+double Cities::total_path_distance(const permutation_t& ordering) const{
+    if(ordering.size() > 0){
+        double total_distance = 0;   
+        //Calculate distance between points up to last element
+        for (unsigned int i = 0; i < ordering.size() - 1; i++){ 
+            total_distance += distance_between(this->cityList[ordering[i]], this->cityList[ordering[i+1]]);                                 
+        } 
+        //Calculate distance between last point and first point
+        total_distance += distance_between(this->cityList[ordering.back()], this->cityList[ordering.front()]);
+        return total_distance;  
+    }
+    return 0;
+}
+//Return a new cities object where the internal representation of the cities reflects the order as indexed by the permutation. 
+//For example, if the first element of the permutation is '3', then the first coordinate pair of the new cities object is the fourth pair in the original object
+Cities Cities::reorder(const permutation_t& ordering) const{
+    Cities newCity;
+    newCity.cityList = this->cityList;
+    for (unsigned int i = 0; i < ordering.size(); i++) {
+        unsigned int newOrder = ordering[i];
+            newCity.cityList[i] = this->cityList[newOrder];
+    }
+    newCity.travelOrder = ordering;
+    return newCity;
 }
 
-//////////////////////////////////////////////////////////////////////////////
-// For a given permutation of the cities in this object,
-// compute how long (distance) it would take to traverse all the cities in the
-// order of the permutation, and then returning to the first city.
-// The distance between any two cities is computed as the Euclidean 
-// distance on a plane between their coordinates.
-double
-Cities::total_path_distance(const permutation_t& ord) const
-{
-  double sum = 0.;
-  for (unsigned i = 1; i <= ord.size(); ++i) {
-    const unsigned j = i % ord.size();
-    const auto dx = cities_[ord[j]].first - cities_[ord[i-1]].first;
-    const auto dy = cities_[ord[j]].second - cities_[ord[i-1]].second;
-    sum += std::hypot(dx, dy);
-  }
-  return sum;
+//Returns a new random permutation of values in range 0 to len - 1
+Cities::permutation_t Cities::random_permutation(unsigned len){
+    Cities::permutation_t new_order; 
+    //Fill vector will all values in range
+    for(unsigned i = 0; i < len; i++){
+        new_order.push_back(i);
+    }
+    //Randomly shuffle values in vector and return
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::shuffle(new_order.begin(), new_order.end(), mt);
+    return new_order;
 }
-
-
-//////////////////////////////////////////////////////////////////////////////
-std::istream& operator>>(std::istream& is, Cities& cities)
-{
-  cities.cities_ = Cities::cities_t();
-  Cities::coord_t city;
-
-  while (is >> city.first) {
-    is >> city.second;
-    cities.cities_.push_back(city);
-  }
-
-  return is;
-}
-
-//////////////////////////////////////////////////////////////////////////////
-std::ostream& operator<<(std::ostream& os, const Cities& cities)
-{
-  for (const auto& c : cities.cities_) {
-    os << c.first << "\t" << c.second << "\n";
-  }
-
-  return os;
-}
-
-//////////////////////////////////////////////////////////////////////////////
-Cities::permutation_t
-random_permutation(unsigned len)
-{
-  Cities::permutation_t ret(len);
-  std::iota(ret.begin(), ret.end(), 0);
-
-  static std::random_device rd;  // Static so we don't initialize every time
-  static std::mt19937 g(rd());
-
-  std::shuffle(ret.begin(), ret.end(), g);
-  return ret;
-}
-
-

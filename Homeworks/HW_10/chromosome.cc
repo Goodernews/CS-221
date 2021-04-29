@@ -12,7 +12,7 @@
 // Generate a completely random permutation from a list of cities
 Chromosome::Chromosome(const Cities* cities_ptr)
   : cities_ptr_(cities_ptr),
-    order_(random_permutation(cities_ptr->size())),
+    order_(Cities::random_permutation(cities_ptr->size())),
     generator_(rand())
 {
   assert(is_valid());
@@ -93,8 +93,33 @@ Chromosome::get_fitness() const
 bool
 Chromosome::is_valid() const
 {
-  // Add your implementation here
-}
+  if(order_.size() > 1){
+    //Copy order_ into a new vector for sorting
+    std::vector<unsigned int> order_copy;
+    order_copy = order_;
+    //Sort array and use std::adjacent_find to check for duplicate elements
+    std::sort(order_copy.begin(), order_copy.end());
+    auto iter = std::adjacent_find(order_copy.begin(), order_copy.end());
+    if(iter == order_copy.end()){
+      //Case where no duplicates found, then check there are no gaps 
+      auto it = std::adjacent_find(order_copy.begin(), order_copy.end(), [](int l, int r){return l+1<r;});
+      if(it == order_copy.end()){
+        //If iterator returned is to the end of the vector, then there are no pairs that differ by more than one
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+    else{
+      //Vector does have duplicate values
+      return false;
+    }
+  //Vector is not of valid size
+  return false;
+  }
+ }
+
 
 // Find whether a certain value appears in a given range of the chromosome.
 // Returns true if value is within the specified the range specified
