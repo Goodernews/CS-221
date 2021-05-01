@@ -13,6 +13,9 @@
 #include <utility>
 #include <cassert>
 #include <fstream>
+#include <istream>
+#include <ostream>
+
 
 // Representation of an ordering of cities
 class Cities {
@@ -45,6 +48,10 @@ class Cities {
 
   //Accessor method that returns length of cityList
   unsigned get_length() const{
+    return cityList.size();
+  }
+
+  unsigned size() const{ //Eitan's implementation
     return cityList.size();
   }
 

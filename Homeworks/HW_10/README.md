@@ -9,13 +9,19 @@ Genetic algorithims are adept at this problem as it is an NP complete problem wh
 
 # `Cities`
 
-We are opting to use ([Aadit & Julian's solution](https://github.com/Byteceps/HW_9_Julian_Aadit) to Homework 9 for the base `Cities` class
+We opted to use [Aadit & Julian's solution](https://github.com/Byteceps/HW_9_Julian_Aadit) to Homework 9 for the base `Cities` class.
+
+Minor changes were made to make the file compatible with the provided `TSP.cc` file.
 
 # `Chromosome`
 
 The chromosome class is used...
 
 Intial code and outline was provided by Eitan Frachtenberg.
+
+## Constructor and Destructor
+
+The constructor and destructor were both set to the default
 
 ## `is_valid()` *Julian Prince*
 
@@ -36,7 +42,10 @@ This is the reward calculating component of the Chromosome class.
 
 It works by taking the length of a given solution and inversing the returned length, thus rewarding a shorter route.
 
-Using the inverse of the length could be problmatic as it increases rewards exponentially (d/dx of 1/x is ln(x), ln(x)=y is e^y=x). 
+**Possible Future Challenges**
+ + Using the inverse of the length could be problmatic as it increases rewards exponentially (d/dx of 1/x is ln(x), ln(x)=y is e^y=x). 
+ + There is a contraint as the returned value is a double. The larger the distance, the greater the likelihood of truncation. 
+	 + We kept this solution because doubles are accurate to 15 decimal places, so unless the distance of the path is greater that 10^15, there will not be truncation. Furthermore, if the length is greater than 10^15, the distance of the path will overflow.  
 
 ## `mutate()` *Julian Prince*
 
@@ -44,29 +53,70 @@ Using the inverse of the length could be problmatic as it increases rewards expo
 ## `is_in_range()` *Aadit Bagdi*
 
 
-## `create_crossover_child()` **Unclaimed**
-
-
-## `recombine()` *Aadit Bagdi*
+## `recombine()` *Aadit Bagdi & Julian Prince*
 
 
 # Deme
 
-## Constructor and Destructor
+`Deme` repesents a portion of the population (Derived from the greek word *demos*, or people)
 
-## `get_best()` **Unclaimed**
+In this assignment Deme is the population of genetic ... 
+
+## Constructor and Destructor *Cole Nemec & Taylor Blair*
+The constructor for a Deme checks that the passed mutation rate is within the valid range from 0 to 1, then sets the object's `mut_rate` and populates its population (`pop_`) with Chromosomes based upon the passed Cities pointer, up to the passed population size (`pop_size`).
+The destructor for a Deme `clear()`s the `pop_` vector, and then performs `swap()` upon a newly-created vector of the same type as `pop_` with the `pop_` vector, swapping the now-empty `pop_` with a vector that has no space allocated to it, effectively freeing the space previously taken by `pop_` when it was in use. 
 
 
-## `select_parent()` **Unclaimed**
+## `get_best()` *Taylor Blair*
+
+`get_best` returns a pointer to the chromosome with the best fitness.
+
+Using the STL to find the max chromosome in the `pop_` vector.
+
+Comparisons are performed using `comp_fitness()` which calls `calculate_fitness()` from the `Chromosome` class to make comparisons.
+
+## `select_parent()` *Cole Nemec & Taylor Blair*
+Returns a pointer to a Chromosome. 
+
+The returned chromosome is determined using the "Roulette Wheel" technique, which is implemented here as follows:
+* Calculate S - the sum of the Deme's population's fitnesses.
+  * `std::acumulate()` was used for this step, and an additional function, `fitnessAccumulation()`, was created to serve as the `op` parameter in `accumulate`.
+* Generate R - a random number between 0 and S.
+* Starting from the top of the population, keep adding the fitness of each member of the population to the partial sum P, until P >= R.
+* The individual for which P equals or exceeds R is the chosen individual.
 
 
-## `compute_next_generation()` **Unclaimed**
+## `compute_next_generation()` **Julian Prince**
+
+
+# TSP
+
+TSP, short for travelling salesperson problem, are the two files that encompass our main function.
+
+The tsp.cc file was created by Eitan Frachtenberg. Minor tweaks were made to make it compatible with the `cities.cc` file made by Aadit & Julian.
+
+## Previous results
+
+Because we are using code borrowed from Aadit & Julians solution, we opted to use the routes and graphics they had generated. Previously, the best challenge route had a route distance of about 19,000.
+![old-challenge-route](images/HW_9/challenge_route.gif) 
+*The* `shortest.tsv` *in the upper right is a formatting mistake.*
+
+It took 100,000 iterations to find that route.
+
+![old-challenge-speed](images/HW_9/challenge_speed.gif)
+
+Of the 50 factorial routes, only 3.288*10^-57% are actually explored.
+
 
 
 # Notes
 
-We would like to give a special thanks to the following individuals for assisting in both outlining, coding, and rubber ducking our code:
+We would like to give a special thanks to the following individuals for their assistance in both outlining, coding, and rubber ducking our code:
  + [Eitan Frachtenberg](https://github.com/eitanf)
 	 + All files named
+ + [David Ramirez](https://www.reed.edu/faculty-profiles/profiles/ramirez-david.html)
+	 + `get_best`
+	 + `calculate_fitness`
+	 + `README.md`
  + Ian Wahbe
-	 + Recombine
+	 + `recombine`

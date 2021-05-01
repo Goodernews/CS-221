@@ -2,10 +2,6 @@
  * Implementation for Chromosome class
  */
 
-#include <algorithm>
-#include <cassert>
-#include <random>
-
 #include "chromosome.hh"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -30,7 +26,14 @@ Chromosome::~Chromosome()
 void
 Chromosome::mutate()
 {
-  // Add your implementation here
+  //Initalize random number generator
+  std::random_device rd;
+  generator_ = std::default_random_engine(rd());
+  std::uniform_int_distribution<int> distr(0, order_.size());
+  //Swap Values In order_ permutation
+  auto randVal = distr(generator_);
+  auto randVal2 = distr(generator_);
+  std::iter_swap(order_.begin() + randVal, order_.begin() + randVal2);
 
   assert(is_valid());
 }
@@ -44,8 +47,20 @@ Chromosome::recombine(const Chromosome* other)
   assert(is_valid());
   assert(other->is_valid());
 
-  // Add your implementation here
+  std::random_device rd;          //Would be good to initialize random engine inside the constructor instead of wherever it's called
+  generator_ = std::default_random_engine(rd());
+  std::uniform_int_distribution<int> distr(1, order_.size());
+
+  int rand = distr(generator_);
+  auto child1 = create_crossover_child(this, other, 0, rand );                       
+  auto child2 = create_crossover_child(other, this, rand +1, order_.size());
+  child1->mutate();                                                             // mutate first child
+  child2->mutate();                                                             // mutate second child
+  std::pair<Chromosome*, Chromosome*> family = std::make_pair(child1, child2);                           // make a std::pair of those two children
+  return family;
 }
+
+ 
 
 //////////////////////////////////////////////////////////////////////////////
 // For an ordered set of parents, return a child using the ordered crossover.
@@ -84,7 +99,14 @@ Chromosome::create_crossover_child(const Chromosome* p1, const Chromosome* p2,
 double
 Chromosome::get_fitness() const
 {
-  // Add your implementation here
+  //From Intro to GA's: We  also  need  to  be  careful  when  calculating  fitness.    
+  //The  clear  choice  for  the  evaluation function is the cost of the tour, but remember that a good tour is one whose cost  
+  //is low, so we need to calculate fitness so that a low cost tour is a high fitness individual. 
+  //One way to do this is to find the largest cost edge in the graph (say it hascost  K),  
+  //then  set  the  fitness  equal  to  N  *  K  –  (path  cost),  where  N  is  the  number  of  cities.  
+  //The makes a tour with a low path cost have a high fitness value.
+  return -1*calculate_total_distance();
+
 }
 
 // A chromsome is valid if it has no repeated values in its permutation,
@@ -118,7 +140,8 @@ Chromosome::is_valid() const
   //Vector is not of valid size
   return false;
   }
- }
+  return true;
+   }
 
 
 // Find whether a certain value appears in a given range of the chromosome.
@@ -127,5 +150,13 @@ Chromosome::is_valid() const
 bool
 Chromosome::is_in_range(unsigned value, unsigned begin, unsigned end) const
 {
-  // Add your implementation here
+  if (end < begin) {
+        assert(end < begin && "Begin value cannot be greater than end value\n");        // if begin is larger than end, raise an assert and print error message
+    }
+    for (auto i = begin; i < end; i++) {
+        if (this->order_[i] == value) {
+            return true;                                                                // scan through the list, if value is in list return true
+        }
+    }
+    return false;                                                                       // else return false
 }
