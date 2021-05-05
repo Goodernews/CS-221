@@ -6,6 +6,8 @@
 #include "chromosome.hh"
 #include "deme.hh"
 
+
+
 //Need to initalize random number generator in the constructor, seed it constantly for debugging purposes
 
 // Generate a Deme of the specified size with all-random chromosomes.
@@ -13,8 +15,7 @@
 Deme::Deme(const Cities* cities_ptr, unsigned pop_size, double mut_rate)
 {
 	// Make sure mutation rate is within the range [0-1].
-	if(mut_rate > 1.0 || mut_rate < 0.0){throw std::invalid_argument("Invalid mutation rate for a Deme. Ensure it's between 0-1.");} 
-    mut_rate_ = mut_rate;
+  mut_rate_ = mut_rate;
 	for(unsigned i = 0; i < pop_size; ++i){
 		pop_.push_back(new Chromosome(cities_ptr)); // Add a newly-generated Chromosome to pop_.
 				// Is the new keyword necessary here?
@@ -24,10 +25,9 @@ Deme::Deme(const Cities* cities_ptr, unsigned pop_size, double mut_rate)
 // Clean up as necessary
 Deme::~Deme()
 {
-  pop_.clear(); //Remove/destroy all chromosomes from the pop_ vector.
-  std::vector<Chromosome*>().swap(pop_); // Create a vector without allocating any memory to it and swap it with pop_, deallocating the memory used by pop_.
-
-//Eitan thinks this is "completley unecessary, though you might need to look at the pointers"
+  for(Chromosome* chrom:pop_){
+  	delete chrom;
+  }
 }
 
 // Evolve a single generation of new chromosomes, as follows:
@@ -51,17 +51,25 @@ void Deme::compute_next_generation()
     auto second_parent = select_parent();
     double first_rand = distr(generator_);
     double second_rand = distr(generator_);
-    //If random num < mutation rate, mutate the assosciated child
-    if(first_rand < mut_rate_){first_parent->mutate();}
-    if(second_rand < mut_rate_){second_parent->mutate();}
+
+    //If random num <= mutation rate, mutate the assosciated child
+    if(first_rand <= mut_rate_){
+	    first_parent->mutate();
+    }
+    if(second_rand <= mut_rate_){
+	    second_parent->mutate();
+    }
     //Store potentially mutated pair in vector
     auto new_pair = first_parent->recombine(second_parent);
     mutated_chromosomes.push_back(new_pair.first);
     mutated_chromosomes.push_back(new_pair.second);
   }
   //Unpack vector of chromosome pairs into vector of chromosomes
+  for (auto& elem:pop_){
+	delete elem; //release memory
+  }
   pop_ = mutated_chromosomes;
-  return;
+
 }
 
 // Return a copy of the chromosome with the highest fitness.
@@ -74,12 +82,13 @@ bool comp_fit(Chromosome* city_a, Chromosome* city_b)
 
 const Chromosome* Deme::get_best() const
 { 
-  return std::max_element(pop_.begin(), pop_.end(), comp_fit)[0]; //finds chromosome with best fit
+	return *std::max_element(pop_.begin(), pop_.end(), comp_fit); //finds chromosome with best fit
+
 }
 
 // Function for op parameter of std::acumulate, as used in select_parent().
 double fitnessAccumulation(double sum, Chromosome* chromosome){
-	return sum + chromosome->get_fitness(); // Add the fitness of chromosome to sum and return it.
+	return sum - chromosome->get_fitness(); // Add the fitness of chromosome to sum and return it.
 }
 
 // Randomly select a chromosome in the population based on fitness and
@@ -89,19 +98,17 @@ Chromosome* Deme::select_parent()
 
 	double sumOfFitness = std::accumulate(pop_.begin(), pop_.end(), 0.0, fitnessAccumulation);
 
-	//Calculate S
-	for(Chromosome* pChromosome : pop_){ //For each chromosome in our population...
-		sumOfFitness += pChromosome->get_fitness(); // Add the chromosome's fitness to the sum.
-	}
-
 	//Calculate R
 	std::uniform_real_distribution<double> distribution (0.0, sumOfFitness); // distribution will return a double between 0 and sumOfFitness when called with a generator.
 	double R = distribution(generator_); // generate R.
 
+
 	double P = 0.0; // Initialize P
 
+
 	for(Chromosome* chromo:pop_){ // For each chromosome in our population...
-		P += chromo->get_fitness(); // Add the fitness of the chromosome to P.
+
+		P -= chromo->get_fitness(); // Add the fitness of the chromosome to P.
 
 		if(P >= R){ //If P exceeds R...
 			return chromo; // Return the current chromosome!

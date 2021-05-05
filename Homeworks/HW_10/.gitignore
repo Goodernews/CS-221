@@ -1,2 +1,5 @@
 .idea
 *.swp
+.vscode/settings.json
+*.o
+tsp

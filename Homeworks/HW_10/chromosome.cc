@@ -1,16 +1,20 @@
 /*
  * Implementation for Chromosome class
  */
+#include <chrono>
 
 #include "chromosome.hh"
+
 
 //////////////////////////////////////////////////////////////////////////////
 // Generate a completely random permutation from a list of cities
 Chromosome::Chromosome(const Cities* cities_ptr)
   : cities_ptr_(cities_ptr),
-    order_(Cities::random_permutation(cities_ptr->size())),
-    generator_(rand())
+    order_(Cities::random_permutation(cities_ptr->size()))
 {
+	unsigned seed1 = std::chrono::system_clock::now().time_since_epoch().count();
+	std::default_random_engine randEngine (seed1);
+	generator_ = randEngine;
   assert(is_valid());
 }
 
@@ -26,14 +30,24 @@ Chromosome::~Chromosome()
 void
 Chromosome::mutate()
 {
-  //Initalize random number generator
-  std::random_device rd;
-  generator_ = std::default_random_engine(rd());
-  std::uniform_int_distribution<int> distr(0, order_.size());
+//  //Initalize random number generator
+//  std::random_device rd;
+//  generator_ = std::default_random_engine(rd());
+  /*std::cout << "old perm: "  << std::endl;
+  for (unsigned int i = 0; i < this->order_.size(); i++) {
+    std::cout << this->order_[i] << " ";
+  }
+  std::cout << std::endl;*/
+  std::uniform_int_distribution<int> distr(0, order_.size() - 1);
   //Swap Values In order_ permutation
   auto randVal = distr(generator_);
   auto randVal2 = distr(generator_);
   std::iter_swap(order_.begin() + randVal, order_.begin() + randVal2);
+  /*std::cout << "new perm: "  << std::endl;
+  for (unsigned int i = 0; i < this->order_.size(); i++) {
+    std::cout << this->order_[i] << " ";
+  }
+  std::cout << std::endl;*/
 
   assert(is_valid());
 }
@@ -47,16 +61,20 @@ Chromosome::recombine(const Chromosome* other)
   assert(is_valid());
   assert(other->is_valid());
 
-  std::random_device rd;          //Would be good to initialize random engine inside the constructor instead of wherever it's called
-  generator_ = std::default_random_engine(rd());
+  //std::random_device rd;          //Would be good to initialize random engine inside the constructor instead of wherever it's called
+  //generator_ = std::default_random_engine(rd());
   std::uniform_int_distribution<int> distr(1, order_.size());
 
   int rand = distr(generator_);
-  auto child1 = create_crossover_child(this, other, 0, rand );                       
-  auto child2 = create_crossover_child(other, this, rand +1, order_.size());
+  auto child1 = create_crossover_child(this, other, 0, rand );
+  auto child2 = create_crossover_child(other, this, rand, order_.size() - 1);
   child1->mutate();                                                             // mutate first child
   child2->mutate();                                                             // mutate second child
   std::pair<Chromosome*, Chromosome*> family = std::make_pair(child1, child2);                           // make a std::pair of those two children
+
+	assert(is_valid());
+	assert(other->is_valid());
+
   return family;
 }
 
@@ -77,7 +95,7 @@ Chromosome::create_crossover_child(const Chromosome* p1, const Chromosome* p2,
   unsigned i = 0, j = 0;
 
   for ( ; i < p1->order_.size() && j < p2->order_.size(); ++i) {
-    if (i >= b and i < e) {
+    if (i >= b && i < e) {
       child->order_[i] = p1->order_[i];
     }
     else { // Increment j as long as its value is in the [b,e) range of p1
@@ -113,36 +131,22 @@ Chromosome::get_fitness() const
 // as well as no indices above the range (length) of the chromosome.
 // We implement this check with a sort, which is a bit inefficient, but simple
 bool
-Chromosome::is_valid() const
-{
-  if(order_.size() > 1){
-    //Copy order_ into a new vector for sorting
-    std::vector<unsigned int> order_copy;
-    order_copy = order_;
-    //Sort array and use std::adjacent_find to check for duplicate elements
-    std::sort(order_copy.begin(), order_copy.end());
-    auto iter = std::adjacent_find(order_copy.begin(), order_copy.end());
-    if(iter == order_copy.end()){
-      //Case where no duplicates found, then check there are no gaps 
-      auto it = std::adjacent_find(order_copy.begin(), order_copy.end(), [](int l, int r){return l+1<r;});
-      if(it == order_copy.end()){
-        //If iterator returned is to the end of the vector, then there are no pairs that differ by more than one
-        return true;
-      }
-      else{
-        return false;
-      }
-    }
-    else{
-      //Vector does have duplicate values
-      return false;
-    }
-  //Vector is not of valid size
-  return false;
-  }
-  return true;
-   }
+Chromosome::is_valid() const {
 
+	std::vector<bool> seen_vec; // a vector of values seen
+	seen_vec.resize(order_.size(), false); //sets all elements to false
+
+	for (long unsigned int i = 0; i < order_.size(); i++) {
+		if (seen_vec[order_[i]] == true) { // if seen before
+			return false;
+		} else {
+			seen_vec[order_[i]] = true; // marks as now seen
+		}
+	}
+
+	return true; //runs through list succesfully
+
+}
 
 // Find whether a certain value appears in a given range of the chromosome.
 // Returns true if value is within the specified the range specified
@@ -150,13 +154,10 @@ Chromosome::is_valid() const
 bool
 Chromosome::is_in_range(unsigned value, unsigned begin, unsigned end) const
 {
-  if (end < begin) {
-        assert(end < begin && "Begin value cannot be greater than end value\n");        // if begin is larger than end, raise an assert and print error message
-    }
-    for (auto i = begin; i < end; i++) {
-        if (this->order_[i] == value) {
-            return true;                                                                // scan through the list, if value is in list return true
-        }
-    }
-    return false;                                                                       // else return false
+	for (auto i = begin; i < end; i++) {
+		if (this->order_[i] == value) {
+			return true;                                                                // scan through the list, if value is in list return true
+		}
+	}
+	return false;                                                                       // else return false
 }
